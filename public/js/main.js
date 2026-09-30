@@ -1,6 +1,6 @@
 // =========================================================
 // CACTEA · main.js
-// 1) Plantita con personalidad (crece, se mece, salta)
+// 1) Cactus con personalidad (crece, se mece, salta)
 // (Después agregaremos aquí el fetch a /api/productos)
 // =========================================================
 
@@ -25,14 +25,23 @@ if (contenedor) {
   // ----- Dibujo: tallo, hojas y flor según el progreso -----
   function dibujar(progreso) {
     // El tallo crece hasta el 85% del recorrido; siempre asoma un brotecito
-    tallo.style.strokeDashoffset = 1 - Math.max(0.06, limitar(progreso / 0.85));
+    if (tallo) {
+      tallo.style.strokeDashoffset = 1 - Math.max(0.06, limitar(progreso / 0.85));
+    }
 
     piezas.forEach((pieza) => {
-      const inicio = parseFloat(pieza.dataset.inicio);
-      const tamano = limitar((progreso - inicio) / 0.12);
-      // La flor además gira mientras se abre
-      const giro = pieza.dataset.giro ? `rotate(${(1 - tamano) * -120}) ` : '';
-      pieza.setAttribute('transform', `${giro}scale(${tamano})`);
+      const inicio   = parseFloat(pieza.dataset.inicio);
+      const duracion = parseFloat(pieza.dataset.duracion || 0.12);   // cuánto tarda en crecer
+      let tamano = limitar((progreso - inicio) / duracion);
+      if (pieza.dataset.min) tamano = Math.max(parseFloat(pieza.dataset.min), tamano); // brotecito inicial
+
+      if (pieza.dataset.eje === 'y') {
+        pieza.setAttribute('transform', `scale(1 ${tamano})`);        // crece solo hacia arriba
+      } else {
+        // La flor además gira mientras se abre
+        const giro = pieza.dataset.giro ? `rotate(${(1 - tamano) * -120}) ` : '';
+        pieza.setAttribute('transform', `${giro}scale(${tamano})`);
+      }
     });
   }
 

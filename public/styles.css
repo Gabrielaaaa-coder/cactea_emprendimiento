@@ -275,6 +275,14 @@
   .planta__centro  { fill: var(--blanco);      stroke: var(--verde-oscuro); stroke-width: 2; }
   .planta__maceta  { fill: var(--gris); }
   
+  /* Cactus */
+  .cactus__tronco  { fill: url(#grad-cactus); }
+  .cactus__brazo   { fill: none; stroke: #3FA574; stroke-width: 11; stroke-linecap: round; stroke-linejoin: round; }
+  .cactus__costilla { fill: none; stroke: #2A8259; stroke-width: 1.5; stroke-linecap: round; opacity: .45; }
+  .cactus__espina  { fill: none; stroke: #F4F9EE; stroke-width: 1.6; stroke-linecap: round; }
+  .cactus__petalo  { fill: #FF9DB8; stroke: #D9577A; stroke-width: 1.5; }
+  .cactus__centro  { fill: #FFD966; stroke: #D9577A; stroke-width: 1.5; }
+  
   /* Carita */
   .planta__ojo {
     fill: var(--blanco);
@@ -303,7 +311,7 @@
   
   .planta-fija.saltando .planta-scroll { animation: salto .6s ease-out; }
   
-  @keyframes mecer    { from { transform: rotate(-2.5deg); } to { transform: rotate(2.5deg); } }
+  @keyframes mecer    { from { transform: rotate(-1.5deg); } to { transform: rotate(1.5deg); } }
   @keyframes parpadeo { 0%, 92%, 100% { transform: scaleY(1); } 96% { transform: scaleY(.1); } }
   @keyframes salto {
     0%   { transform: translateY(0) scale(1, 1); }
