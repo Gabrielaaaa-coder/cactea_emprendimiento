@@ -1,27 +1,19 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <!-- Configuración básica de la página -->
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Cactea | Vivero orgánico de suculentas y cactus</title>
   <meta name="description" content="Cactea, vivero orgánico. Venta de suculentas y cactus.">
-
-  <!-- Aquí conectaremos tu CSS en el siguiente paso -->
   <link rel="stylesheet" href="styles.css">
-
-  <!-- Tu JavaScript. "defer" espera a que el HTML cargue antes de ejecutarse -->
   <script src="js/main.js" defer></script>
 </head>
-
 <body>
-
-  <!-- 1. ENCABEZADO: logo + menú de navegación -->
+  <!-- 1. ENCABEZADO -->
   <header class="encabezado">
     <a href="#inicio" class="encabezado__logo">
       <img src="img/logo-cactea.png" alt="Logo de Cactea">
     </a>
-
     <nav class="menu" aria-label="Menú principal">
       <ul>
         <li><a href="#nosotros">Nosotros</a></li>
@@ -31,14 +23,12 @@
       </ul>
     </nav>
   </header>
-
   <main>
-
-    <!-- 2. PORTADA (hero): lo primero que ve la persona -->
+    <!-- 2.hero -->
     <section id="inicio" class="portada">
       <div class="portada__texto">
         <h1>Cactea</h1>
-        <p class="portada__lema">Vivero orgánico</p>
+        <p class="portada__lema">Regala vida</p>
         <p>Suculentas y cactus para llenar tu espacio de vida.</p>
         <a href="#productos" class="boton">Ver productos</a>
       </div>
@@ -125,7 +115,7 @@
       <h2>Contactanos</h2>
       <ul>
         <li>WhatsApp: <a href="https://wa.me/593XXXXXXXXX">+593 XXX XXX XXX</a></li>
-        <li>Instagram: <a href="#">@cactea_suculentas</a></li>
+        <li>Instagram: <a href="https://www.instagram.com/cactea_suculentas/">@cactea_suculentas</a></li>
         <li>Ciudad: Guayaquil</li>
       </ul>
     </section>
@@ -138,32 +128,39 @@
   </footer>
 
 
-  <!-- PLANTITA CON PERSONALIDAD: crece con el scroll, tiene carita, habla y reacciona -->
+  <!-- CACTUS CON PERSONALIDAD: crece con el scroll, tiene carita, habla y reacciona -->
   <div class="planta-fija" aria-hidden="true">
     <svg class="planta-scroll" viewBox="0 0 120 200" focusable="false">
-      <!-- degradado de las hojas: más vivo que un color plano -->
+      <!-- degradado del cactus: el centro más claro le da forma redondeada -->
       <defs>
-        <linearGradient id="grad-hoja" x1="0" y1="0" x2="1" y2="0">
-          <stop offset="0" stop-color="#3E9E6F"/>
-          <stop offset="1" stop-color="#7AD9A4"/>
+        <linearGradient id="grad-cactus" x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0" stop-color="#2F9463"/>
+          <stop offset="0.45" stop-color="#5CC793"/>
+          <stop offset="1" stop-color="#3A9E6D"/>
         </linearGradient>
       </defs>
-      <!-- CUERPO: tallo, hojas y flor. Todo esto se mece suavemente -->
+
+      <!-- CUERPO: brazos, tronco y flor. Todo se mece suavemente -->
       <g class="planta__cuerpo">
-        <path class="planta__tallo" d="M60 172 L60 40" pathLength="1"/>
 
-        <!-- hojas: data-inicio = en qué punto del scroll (0 a 1) empiezan a salir -->
-        <g transform="translate(60 150)"><path class="planta__hoja" data-inicio="0.10" d="M0 0 C10 -10 28 -12 38 -4 C28 6 10 8 0 0Z"/></g>
-        <g transform="translate(60 128) scale(-1 1)"><path class="planta__hoja" data-inicio="0.25" d="M0 0 C10 -10 28 -12 38 -4 C28 6 10 8 0 0Z"/></g>
-        <g transform="translate(60 106)"><path class="planta__hoja" data-inicio="0.40" d="M0 0 C10 -10 28 -12 38 -4 C28 6 10 8 0 0Z"/></g>
-        <g transform="translate(60 84) scale(-1 1)"><path class="planta__hoja" data-inicio="0.55" d="M0 0 C10 -10 28 -12 38 -4 C28 6 10 8 0 0Z"/></g>
-        <g transform="translate(60 62)"><path class="planta__hoja" data-inicio="0.70" d="M0 0 C10 -10 28 -12 38 -4 C28 6 10 8 0 0Z"/></g>
+        <!-- brazos (salen a los lados en su data-inicio) -->
+        <g transform="translate(48 112)"><path class="cactus__brazo" data-inicio="0.40" d="M0 0 H-18 V-28"/></g>
+        <g transform="translate(72 90)"><path class="cactus__brazo" data-inicio="0.60" d="M0 0 H18 V-24"/></g>
 
-        <!-- flor: se abre girando (data-giro) -->
-        <g transform="translate(60 36)">
-          <g class="planta__flor" data-inicio="0.85" data-giro="1">
-            <ellipse class="planta__petalo" cx="0" cy="-10" rx="5.5" ry="9" transform="rotate(0)"/><ellipse class="planta__petalo" cx="0" cy="-10" rx="5.5" ry="9" transform="rotate(60)"/><ellipse class="planta__petalo" cx="0" cy="-10" rx="5.5" ry="9" transform="rotate(120)"/><ellipse class="planta__petalo" cx="0" cy="-10" rx="5.5" ry="9" transform="rotate(180)"/><ellipse class="planta__petalo" cx="0" cy="-10" rx="5.5" ry="9" transform="rotate(240)"/><ellipse class="planta__petalo" cx="0" cy="-10" rx="5.5" ry="9" transform="rotate(300)"/>
-            <circle class="planta__centro" r="5"/>
+        <!-- tronco: crece hacia arriba desde la maceta (data-eje="y") -->
+        <g transform="translate(60 172)">
+          <g data-inicio="0" data-duracion="0.7" data-eje="y" data-min="0.1">
+            <rect class="cactus__tronco" x="-15" y="-122" width="30" height="122" rx="15"/>
+            <path class="cactus__costilla" d="M-4 -8 V-108 M6 -8 V-108"/>
+            <path class="cactus__espina" d="M-9 -30 l-4 -2 M9 -46 l4 -2 M-9 -66 l-4 -2 M9 -86 l4 -2 M-9 -102 l-4 -2"/>
+          </g>
+        </g>
+
+        <!-- florcita rosa en la punta: se abre girando -->
+        <g transform="translate(60 46)">
+          <g data-inicio="0.85" data-giro="1">
+            <ellipse class="cactus__petalo" cx="0" cy="-9" rx="5" ry="8" transform="rotate(0)"/><ellipse class="cactus__petalo" cx="0" cy="-9" rx="5" ry="8" transform="rotate(72)"/><ellipse class="cactus__petalo" cx="0" cy="-9" rx="5" ry="8" transform="rotate(144)"/><ellipse class="cactus__petalo" cx="0" cy="-9" rx="5" ry="8" transform="rotate(216)"/><ellipse class="cactus__petalo" cx="0" cy="-9" rx="5" ry="8" transform="rotate(288)"/>
+            <circle class="cactus__centro" r="4.5"/>
           </g>
         </g>
       </g>
