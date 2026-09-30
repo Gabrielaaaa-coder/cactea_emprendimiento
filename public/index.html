@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Cactea | Vivero orgánico de suculentas y cactus</title>
+  <meta name="description" content="Cactea, vivero orgánico. Venta de suculentas y cactus.">
+    <link rel="stylesheet" href="styles.css">
+  <script src="js/main.js" defer></script>
+</head>
+
+<body>
+  <header class="encabezado">
+    <a href="#inicio" class="encabezado__logo">
+      <img src="img/logo-cactea.png" alt="Logo de Cactea">
+    </a>
+
+    <nav class="menu" aria-label="Menú principal">
+      <ul>
+        <li><a href="#nosotros">Nosotros</a></li>
+        <li><a href="#productos">Productos</a></li>
+        <li><a href="#como-comprar">Cómo comprar</a></li>
+        <li><a href="#contacto">Contacto</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+
+    <!--hero-->
+    <section id="inicio" class="portada">
+      <div class="portada__texto">
+        <h1>Cactea</h1>
+        <p class="portada__lema">Vivero orgánico</p>
+        <p>Suculentas y cactus para llenar tu espacio de vida.</p>
+        <a href="#productos" class="boton">Ver productos</a>
+      </div>
+      <img class="portada__imagen" src="img/portada.jpg" alt="Suculentas en macetas de Cactea">
+    </section>
+
+    <!-- 3. NOSOTROS -->
+    <section id="nosotros" class="nosotros">
+      <h2>Quiénes somos</h2>
+      <p>
+        Aquí va la historia de Cactea: cómo nació, por qué elegiste las suculentas
+        y qué hace especial a tu vivero.
+      </p>
+      <p>
+        Escribe 2 o 3 frases cortas. Menos texto, más claridad.
+      </p>
+    </section>
+
+    <!-- 4. PRODUCTOS -->
+    <section id="productos" class="productos">
+      <h2>Nuestros productos</h2>
+
+      <div id="lista-productos" class="productos__lista" aria-live="polite">
+        <!-- JavaScript pide los productos a la API (/api/productos) y los dibuja aquí -->
+        <p class="productos__estado">Cargando productos...</p>
+      </div>
+
+      <!-- Plantilla de UNA tarjeta: JS la copia por cada producto que llegue de la API -->
+      <template id="plantilla-tarjeta">
+        <article class="tarjeta">
+          <img class="tarjeta__imagen" src="" alt="">
+          <h3 class="tarjeta__nombre"></h3>
+          <p class="tarjeta__descripcion"></p>
+          <p class="tarjeta__precio"></p>
+          <a class="boton tarjeta__pedir" href="#">Pedir por WhatsApp</a>
+        </article>
+      </template>
+    </section>
+
+    <!-- 5. CÓMO COMPRAR: pasos (aquí sí es una secuencia, por eso lista ordenada <ol>) -->
+    <section id="como-comprar" class="como-comprar">
+      <h2>Cómo comprar</h2>
+      <ol>
+        <li>Elige tu producto.</li>
+        <li>Escríbenos por WhatsApp.</li>
+        <li>Coordinamos pago y entrega.</li>
+      </ol>
+    </section>
+
+    <!-- 6. CONTACTO -->
+    <section id="contacto" class="contacto">
+      <h2>Contacto</h2>
+      <ul>
+        <li>WhatsApp: <a href="https://wa.me/593XXXXXXXXX">+593 XXX XXX XXX</a></li>
+        <li>Instagram: <a href="#">@tu_usuario</a></li>
+        <li>Ciudad: Guayaquil</li>
+      </ul>
+    </section>
+
+  </main>
+
+  <!-- 7. PIE DE PÁGINA -->
+  <footer class="pie">
+    <p>&copy; 2026 Cactea. Vivero orgánico.</p>
+  </footer>
+
+</body>
+</html>
