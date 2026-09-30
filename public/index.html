@@ -3,17 +3,18 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Cactea | Vivero orgánico de suculentas y cactus</title>
+  <title>Cactea </title>
   <meta name="description" content="Cactea, vivero orgánico. Venta de suculentas y cactus.">
   <link rel="stylesheet" href="styles.css">
   <script src="js/main.js" defer></script>
 </head>
 <body>
-  <!-- 1. ENCABEZADO -->
+<!-- 1. ENCABEZADO:  -->
   <header class="encabezado">
     <a href="#inicio" class="encabezado__logo">
       <img src="img/logo-cactea.png" alt="Logo de Cactea">
     </a>
+
     <nav class="menu" aria-label="Menú principal">
       <ul>
         <li><a href="#nosotros">Nosotros</a></li>
@@ -23,27 +24,81 @@
       </ul>
     </nav>
   </header>
+
   <main>
-    <!-- 2.hero -->
+
+    <!-- (hero) -->
     <section id="inicio" class="portada">
+
+      <!-- Decoración de fondo: círculos y hojitas suaves (no lleva información) -->
+      <svg class="portada__deco" viewBox="0 0 1000 600" preserveAspectRatio="xMidYMid slice" aria-hidden="true" focusable="false">
+        <circle cx="900" cy="80"  r="180" class="deco__circulo"/>
+        <circle cx="60"  cy="540" r="150" class="deco__circulo"/>
+        <circle cx="500" cy="590" r="70"  class="deco__circulo deco__circulo--suave"/>
+        <circle cx="120" cy="90"  r="26"  class="deco__circulo deco__circulo--suave"/>
+        <circle cx="820" cy="470" r="18"  class="deco__circulo deco__circulo--suave"/>
+        <g transform="translate(400 110) rotate(-25)"><path class="deco__hoja" d="M0 0 C14 -18 40 -22 58 -8 C40 10 14 12 0 0Z"/></g>
+        <g transform="translate(860 300) rotate(40) scale(-1 1)"><path class="deco__hoja deco__hoja--b" d="M0 0 C14 -18 40 -22 58 -8 C40 10 14 12 0 0Z"/></g>
+        <g transform="translate(600 40) rotate(20)"><path class="deco__hoja deco__hoja--c" d="M0 0 C14 -18 40 -22 58 -8 C40 10 14 12 0 0Z"/></g>
+      </svg>
+
       <div class="portada__texto">
         <h1>Cactea</h1>
         <p class="portada__lema">Regala vida</p>
-        <p>Suculentas y cactus para llenar tu espacio de vida.</p>
-        <a href="#productos" class="boton">Ver productos</a>
+        <p class="portada__descripcion">
+          En Cactea encontrarás suculentas y cactus cultivados con cariño, perfectos para
+          decorar tu casa, tu oficina o para regalar a alguien especial. Además, te
+          contamos cómo cuidarlos para que crezcan sanos y felices.
+        </p>
+        <div class="portada__botones">
+          <a href="#productos" class="boton">Ver productos</a>
+          <a href="#cuidados" class="boton boton--borde">Cómo cuidarlas</a>
+        </div>
       </div>
       <img class="portada__imagen" src="img/portada.jpg" alt="Suculentas en macetas de Cactea">
+      <svg class="portada__ola" viewBox="0 0 1440 80" preserveAspectRatio="none" aria-hidden="true" focusable="false">
+        <path d="M0 40 C240 90 480 0 720 40 S1200 80 1440 30 V80 H0Z"/>
+      </svg>
     </section>
 
-    <!-- 3. NOSOTROS: presentación del emprendimiento -->
+    <!-- 2b. DESTACADOS: 3 productos para ver algo sin bajar. Luego los llenará la API -->
+    <section id="destacados" class="destacados">
+      <h2>Nuestros favoritos</h2>
+      <div class="destacados__lista">
+
+        <article class="tarjeta tarjeta--mini">
+          <img class="tarjeta__imagen" src="img/producto-1.jpg" alt="Echeveria en maceta">
+          <h3 class="tarjeta__nombre">Echeveria</h3>
+          <p class="tarjeta__precio">$0.00</p>
+          <a class="tarjeta__enlace" href="#productos">Ver más →</a>
+        </article>
+
+        <article class="tarjeta tarjeta--mini">
+          <img class="tarjeta__imagen" src="img/producto-2.jpg" alt="Cactus pequeño en maceta">
+          <h3 class="tarjeta__nombre">Cactus mini</h3>
+          <p class="tarjeta__precio">$0.00</p>
+          <a class="tarjeta__enlace" href="#productos">Ver más →</a>
+        </article>
+
+        <article class="tarjeta tarjeta--mini">
+          <img class="tarjeta__imagen" src="img/producto-3.jpg" alt="Set de suculentas para regalo">
+          <h3 class="tarjeta__nombre">Set para regalar</h3>
+          <p class="tarjeta__precio">$0.00</p>
+          <a class="tarjeta__enlace" href="#productos">Ver más →</a>
+        </article>
+
+      </div>
+    </section>
+
+    <!-- 3. NOSOTROS-->
     <section id="nosotros" class="nosotros">
       <h2>Quiénes somos</h2>
       <p>
-        Aquí va la historia de Cactea: cómo nació, por qué elegiste las suculentas
-        y qué hace especial a tu vivero.
+        Todo surgio desde una pequeña terraza en el suburbio de Guayaquil. 
+        El amor a las plantas y a la naturaleza nos llevo a crear a un pequeño osais que poco a poco se fue transformando en una forma de vida 
       </p>
       <p>
-        Escribe 2 o 3 frases cortas. Menos texto, más claridad.
+        Cada planta contiene una parte del corazon de todos los que conformamos cactea.
       </p>
     </section>
 
@@ -56,7 +111,7 @@
         <p class="productos__estado">Cargando productos...</p>
       </div>
 
-      <!-- Plantilla de UNA tarjeta: JS la copia por cada producto que llegue de la API -->
+      <!--Por cada producto, hay q copiarlo -->
       <template id="plantilla-tarjeta">
         <article class="tarjeta">
           <img class="tarjeta__imagen" src="" alt="">
@@ -68,7 +123,7 @@
       </template>
     </section>
 
-    <!-- 5. CUIDADOS: consejos para suculentas y cactus. Copia un <article> para agregar más -->
+    <!-- 5. CUIDADOS -->
     <section id="cuidados" class="cuidados">
       <h2>Cuidados</h2>
       <p class="cuidados__intro">
@@ -128,26 +183,19 @@
   </footer>
 
 
-  <!-- CACTUS CON PERSONALIDAD: crece con el scroll, tiene carita, habla y reacciona -->
+  <!-- CACTUS-->
   <div class="planta-fija" aria-hidden="true">
     <svg class="planta-scroll" viewBox="0 0 120 200" focusable="false">
-      <!-- degradado del cactus: el centro más claro le da forma redondeada -->
-      <defs>
+         <defs>
         <linearGradient id="grad-cactus" x1="0" y1="0" x2="1" y2="0">
           <stop offset="0" stop-color="#2F9463"/>
           <stop offset="0.45" stop-color="#5CC793"/>
           <stop offset="1" stop-color="#3A9E6D"/>
         </linearGradient>
       </defs>
-
-      <!-- CUERPO: brazos, tronco y flor. Todo se mece suavemente -->
       <g class="planta__cuerpo">
-
-        <!-- brazos (salen a los lados en su data-inicio) -->
         <g transform="translate(48 112)"><path class="cactus__brazo" data-inicio="0.40" d="M0 0 H-18 V-28"/></g>
         <g transform="translate(72 90)"><path class="cactus__brazo" data-inicio="0.60" d="M0 0 H18 V-24"/></g>
-
-        <!-- tronco: crece hacia arriba desde la maceta (data-eje="y") -->
         <g transform="translate(60 172)">
           <g data-inicio="0" data-duracion="0.7" data-eje="y" data-min="0.1">
             <rect class="cactus__tronco" x="-15" y="-122" width="30" height="122" rx="15"/>
@@ -155,8 +203,6 @@
             <path class="cactus__espina" d="M-9 -30 l-4 -2 M9 -46 l4 -2 M-9 -66 l-4 -2 M9 -86 l4 -2 M-9 -102 l-4 -2"/>
           </g>
         </g>
-
-        <!-- florcita rosa en la punta: se abre girando -->
         <g transform="translate(60 46)">
           <g data-inicio="0.85" data-giro="1">
             <ellipse class="cactus__petalo" cx="0" cy="-9" rx="5" ry="8" transform="rotate(0)"/><ellipse class="cactus__petalo" cx="0" cy="-9" rx="5" ry="8" transform="rotate(72)"/><ellipse class="cactus__petalo" cx="0" cy="-9" rx="5" ry="8" transform="rotate(144)"/><ellipse class="cactus__petalo" cx="0" cy="-9" rx="5" ry="8" transform="rotate(216)"/><ellipse class="cactus__petalo" cx="0" cy="-9" rx="5" ry="8" transform="rotate(288)"/>
