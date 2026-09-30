@@ -122,7 +122,7 @@
   }
   .menu a:hover { color: var(--verde-oscuro); }
   
- 
+  /* 6. PORTADA --------------------------------------------- */
   main > .portada {
     background: var(--crema);
     display: grid;
@@ -130,7 +130,7 @@
     gap: 2rem;
     align-items: center;
     max-width: none;
-    
+    /* fondo a todo el ancho, contenido alineado con las demás secciones */
     padding-inline: max(1.25rem, calc((100% - var(--ancho-max)) / 2));
   }
   main > .portada > * { max-width: none; margin-inline: 0; }
@@ -148,19 +148,29 @@
     border: 4px solid var(--blanco);
   }
   
-  /* 7. NOSOTROS Y CÓMO COMPRAR ------------------------------ */
+  /* 7. NOSOTROS Y CUIDADOS ------------------------------ */
   .nosotros > *:not(h2) {
     max-width: 62ch;          /* líneas cortas = más fáciles de leer */
     text-align: center;
   }
   
-  .como-comprar { background: var(--crema); }
-  .como-comprar ol {
-    max-width: 34rem;
-    padding-left: 1.5rem;
-    font-weight: 700;
+  /* CUIDADOS */
+  .cuidados { background: var(--crema); }
+  .cuidados__intro { max-width: 62ch; text-align: center; }
+  .cuidados__lista {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 1.5rem;
+    margin-top: 2rem;
   }
-  .como-comprar li { margin-bottom: .5rem; }
+  .cuidado {
+    padding: 1.25rem;
+    background: var(--blanco);
+    border: 2px solid var(--verde-claro);
+    border-radius: var(--radio);
+  }
+  .cuidado h3 { margin-bottom: .4rem; }
+  .cuidado p { margin: 0; }
   
   /* 8. PRODUCTOS ------------------------------------------- */
   .productos__lista {
@@ -185,7 +195,7 @@
     object-fit: cover;
     border-radius: calc(var(--radio) - 6px);
     margin-bottom: .8rem;
-    background: var(--crema);
+    background: var(--crema);   /* color de fondo mientras carga la foto */
   }
   .tarjeta__descripcion { margin: 0 0 .8rem; flex-grow: 1; }
   .tarjeta__precio {
@@ -224,4 +234,84 @@
   @media (prefers-reduced-motion: reduce) {
     html { scroll-behavior: auto; }
     .boton { transition: none; }
+  }
+  
+  
+  /* 11. PLANTITA CON PERSONALIDAD --------------------------
+     .planta-fija = contenedor fijo en la esquina.
+     Cambia right/left y bottom para moverla. */
+  .planta-fija {
+    position: fixed;
+    right: 1rem;
+    bottom: 1rem;
+    z-index: 5;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: .5rem;
+    pointer-events: none;      /* el contenedor no estorba los clics... */
+  }
+  
+  .planta-scroll {
+    width: clamp(64px, 9vw, 110px);
+    height: auto;
+    overflow: visible;
+    pointer-events: auto;      /* ...pero la plantita sí se puede tocar */
+    cursor: pointer;
+    transform-origin: 50% 100%;
+  }
+  
+  /* Dibujo */
+  .planta__tallo {
+    fill: none;
+    stroke: #2F9463;        /* verde más vivo para el tallo */
+    stroke-width: 5;
+    stroke-linecap: round;
+    stroke-dasharray: 1;
+    stroke-dashoffset: 1;   /* 1 = escondido, 0 = dibujado completo */
+  }
+  .planta__hoja    { fill: url(#grad-hoja); }   /* degradado definido en el HTML */
+  .planta__petalo  { fill: #BDEBD0; stroke: #2F9463; stroke-width: 2; }
+  .planta__centro  { fill: var(--blanco);      stroke: var(--verde-oscuro); stroke-width: 2; }
+  .planta__maceta  { fill: var(--gris); }
+  
+  /* Carita */
+  .planta__ojo {
+    fill: var(--blanco);
+    transform-box: fill-box;
+    transform-origin: center;
+    animation: parpadeo 4.5s infinite;
+  }
+  .planta__cachete { fill: var(--verde-claro); opacity: .8; }
+  .planta__boca {
+    fill: none;
+    stroke: var(--blanco);
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+  .planta__boca--feliz { display: none; fill: var(--blanco); }
+  .planta-fija.celebrando .planta__boca { display: none; }
+  .planta-fija.celebrando .planta__boca--feliz { display: inline; }
+  
+  /* Animaciones */
+  .planta__cuerpo {
+    transform-origin: 60px 172px;   /* se mece desde la base del tallo */
+    animation: mecer 3.5s ease-in-out infinite alternate;
+  }
+  .planta-fija.activa .planta__cuerpo { animation-duration: .8s; }  /* se agita al hacer scroll */
+  
+  .planta-fija.saltando .planta-scroll { animation: salto .6s ease-out; }
+  
+  @keyframes mecer    { from { transform: rotate(-2.5deg); } to { transform: rotate(2.5deg); } }
+  @keyframes parpadeo { 0%, 92%, 100% { transform: scaleY(1); } 96% { transform: scaleY(.1); } }
+  @keyframes salto {
+    0%   { transform: translateY(0) scale(1, 1); }
+    30%  { transform: translateY(-18px) scale(.95, 1.06); }
+    65%  { transform: translateY(0) scale(1.07, .93); }
+    100% { transform: translateY(0) scale(1, 1); }
+  }
+  
+  @media (prefers-reduced-motion: reduce) {
+    .planta__cuerpo, .planta__ojo, .planta-fija.saltando .planta-scroll { animation: none; }
   }
