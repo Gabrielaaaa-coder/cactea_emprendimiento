@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Cactea | Vivero orgánico de suculentas y cactus</title>
+  <meta name="description" content="Cactea, vivero orgánico. Venta de suculentas y cactus.">
+  <link rel="stylesheet" href="styles.css">
+  <script src="js/main.js" defer></script>
+</head>
+<body>
+  <!-- 1. ENCABEZADO -->
+  <header class="encabezado">
+    <a href="#inicio" class="encabezado__logo">
+      <img src="img/logo-cactea.png" alt="Logo de Cactea">
+    </a>
+    <nav class="menu" aria-label="Menú principal">
+      <ul>
+        <li><a href="#nosotros">Nosotros</a></li>
+        <li><a href="#productos">Productos</a></li>
+        <li><a href="#cuidados">Cuidados</a></li>
+        <li><a href="#contacto">Contactanos</a></li>
+      </ul>
+    </nav>
+  </header>
+  <main>
+    <!-- 2.hero -->
+    <section id="inicio" class="portada">
+      <div class="portada__texto">
+        <h1>Cactea</h1>
+        <p class="portada__lema">Regala vida</p>
+        <p>Suculentas y cactus para llenar tu espacio de vida.</p>
+        <a href="#productos" class="boton">Ver productos</a>
+      </div>
+      <img class="portada__imagen" src="img/portada.jpg" alt="Suculentas en macetas de Cactea">
+    </section>
+
+    <!-- 3. NOSOTROS: presentación del emprendimiento -->
+    <section id="nosotros" class="nosotros">
+      <h2>Quiénes somos</h2>
+      <p>
+        Aquí va la historia de Cactea: cómo nació, por qué elegiste las suculentas
+        y qué hace especial a tu vivero.
+      </p>
+      <p>
+        Escribe 2 o 3 frases cortas. Menos texto, más claridad.
+      </p>
+    </section>
+
+    <!-- 4. PRODUCTOS: ya no se escriben a mano; vienen de la API -->
+    <section id="productos" class="productos">
+      <h2>Nuestros productos</h2>
+
+      <div id="lista-productos" class="productos__lista" aria-live="polite">
+        <!-- JavaScript pide los productos a la API (/api/productos) y los dibuja aquí -->
+        <p class="productos__estado">Cargando productos...</p>
+      </div>
+
+      <!-- Plantilla de UNA tarjeta: JS la copia por cada producto que llegue de la API -->
+      <template id="plantilla-tarjeta">
+        <article class="tarjeta">
+          <img class="tarjeta__imagen" src="" alt="">
+          <h3 class="tarjeta__nombre"></h3>
+          <p class="tarjeta__descripcion"></p>
+          <p class="tarjeta__precio"></p>
+          <a class="boton tarjeta__pedir" href="#">Pedir por WhatsApp</a>
+        </article>
+      </template>
+    </section>
+
+    <!-- 5. CUIDADOS: consejos para suculentas y cactus. Copia un <article> para agregar más -->
+    <section id="cuidados" class="cuidados">
+      <h2>Cuidados</h2>
+      <p class="cuidados__intro">
+        Las suculentas y los cactus son fáciles de cuidar si conoces lo básico.
+      </p>
+
+      <div class="cuidados__lista">
+
+        <article class="cuidado">
+          <h3>☀️ Luz</h3>
+          <p>Necesitan mucha luz. Ponlas cerca de una ventana luminosa. Los cactus toleran más sol directo; las suculentas nuevas prefieren el sol suave de la mañana.</p>
+        </article>
+
+        <article class="cuidado">
+          <h3>💧 Riego</h3>
+          <p>Riega solo cuando la tierra esté completamente seca. Moja bien y deja escurrir el agua sobrante. Es mejor quedarse corto que pasarse.</p>
+        </article>
+
+        <article class="cuidado">
+          <h3>🪴 Maceta y tierra</h3>
+          <p>Usa una maceta con agujeros y una tierra que drene, mezclada con arena gruesa o perlita. El agua estancada pudre las raíces.</p>
+        </article>
+
+        <article class="cuidado">
+          <h3>🔎 Lee sus hojas</h3>
+          <p>Hojas blandas, amarillas o transparentes indican exceso de agua. Hojas arrugadas indican sed. Si se estira mucho, le falta luz.</p>
+        </article>
+
+        <article class="cuidado">
+          <h3>🌱 Abono</h3>
+          <p>Necesitan muy poco. Un abono suave cada tanto en la temporada de crecimiento es suficiente. No abones plantas recién compradas o enfermas.</p>
+        </article>
+
+        <article class="cuidado">
+          <h3>🔄 Trasplante</h3>
+          <p>Cámbiala de maceta cuando las raíces ya no quepan. Deja secar la tierra unos días antes y espera un poco para regarla después.</p>
+        </article>
+
+      </div>
+    </section>
+
+    <!-- 6. CONTACTO -->
+    <section id="contacto" class="contacto">
+      <h2>Contactanos</h2>
+      <ul>
+        <li>WhatsApp: <a href="https://wa.me/593XXXXXXXXX">+593 XXX XXX XXX</a></li>
+        <li>Instagram: <a href="https://www.instagram.com/cactea_suculentas/">@cactea_suculentas</a></li>
+        <li>Ciudad: Guayaquil</li>
+      </ul>
+    </section>
+
+  </main>
+
+  <!-- 7. PIE DE PÁGINA -->
+  <footer class="pie">
+    <p>&copy; 2026 Cactea. Vivero orgánico.</p>
+  </footer>
+
+
+  <!-- CACTUS CON PERSONALIDAD: crece con el scroll, tiene carita, habla y reacciona -->
+  <div class="planta-fija" aria-hidden="true">
+    <svg class="planta-scroll" viewBox="0 0 120 200" focusable="false">
+      <!-- degradado del cactus: el centro más claro le da forma redondeada -->
+      <defs>
+        <linearGradient id="grad-cactus" x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0" stop-color="#2F9463"/>
+          <stop offset="0.45" stop-color="#5CC793"/>
+          <stop offset="1" stop-color="#3A9E6D"/>
+        </linearGradient>
+      </defs>
+
+      <!-- CUERPO: brazos, tronco y flor. Todo se mece suavemente -->
+      <g class="planta__cuerpo">
+
+        <!-- brazos (salen a los lados en su data-inicio) -->
+        <g transform="translate(48 112)"><path class="cactus__brazo" data-inicio="0.40" d="M0 0 H-18 V-28"/></g>
+        <g transform="translate(72 90)"><path class="cactus__brazo" data-inicio="0.60" d="M0 0 H18 V-24"/></g>
+
+        <!-- tronco: crece hacia arriba desde la maceta (data-eje="y") -->
+        <g transform="translate(60 172)">
+          <g data-inicio="0" data-duracion="0.7" data-eje="y" data-min="0.1">
+            <rect class="cactus__tronco" x="-15" y="-122" width="30" height="122" rx="15"/>
+            <path class="cactus__costilla" d="M-4 -8 V-108 M6 -8 V-108"/>
+            <path class="cactus__espina" d="M-9 -30 l-4 -2 M9 -46 l4 -2 M-9 -66 l-4 -2 M9 -86 l4 -2 M-9 -102 l-4 -2"/>
+          </g>
+        </g>
+
+        <!-- florcita rosa en la punta: se abre girando -->
+        <g transform="translate(60 46)">
+          <g data-inicio="0.85" data-giro="1">
+            <ellipse class="cactus__petalo" cx="0" cy="-9" rx="5" ry="8" transform="rotate(0)"/><ellipse class="cactus__petalo" cx="0" cy="-9" rx="5" ry="8" transform="rotate(72)"/><ellipse class="cactus__petalo" cx="0" cy="-9" rx="5" ry="8" transform="rotate(144)"/><ellipse class="cactus__petalo" cx="0" cy="-9" rx="5" ry="8" transform="rotate(216)"/><ellipse class="cactus__petalo" cx="0" cy="-9" rx="5" ry="8" transform="rotate(288)"/>
+            <circle class="cactus__centro" r="4.5"/>
+          </g>
+        </g>
+      </g>
+
+      <!-- MACETA con carita -->
+      <path class="planta__maceta" d="M34 172 H86 L80 198 H40 Z"/>
+      <ellipse class="planta__ojo" cx="51" cy="182" rx="2.6" ry="3"/>
+      <ellipse class="planta__ojo" cx="69" cy="182" rx="2.6" ry="3"/>
+      <circle class="planta__cachete" cx="45" cy="188" r="3.2"/>
+      <circle class="planta__cachete" cx="75" cy="188" r="3.2"/>
+      <path class="planta__boca" d="M54 187 Q60 192 66 187"/>
+      <path class="planta__boca planta__boca--feliz" d="M53 186 Q60 197 67 186 Z"/>
+    </svg>
+  </div>
+
+</body>
+</html>
