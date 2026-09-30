@@ -323,3 +323,112 @@
   @media (prefers-reduced-motion: reduce) {
     .planta__cuerpo, .planta__ojo, .planta-fija.saltando .planta-scroll { animation: none; }
   }
+  
+  
+  
+  /* 12. PORTADA: decoración, ola y botones -------------------- */
+  main > .portada {
+    position: relative;
+    overflow: hidden;
+    padding-block: 4rem 7rem;     /* más espacio abajo para la ola */
+  }
+  .portada__texto,
+  .portada__imagen { position: relative; z-index: 1; }
+  
+  /* Fondo decorativo */
+  .portada__deco {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+  }
+  .deco__circulo { fill: var(--verde-claro); opacity: .55; }
+  .deco__circulo--suave { opacity: .35; }
+  .deco__hoja {
+    fill: var(--verde-medio);
+    opacity: .22;
+    transform-box: fill-box;
+    transform-origin: center;
+    animation: flotar 7s ease-in-out infinite alternate;
+  }
+  .deco__hoja--b { animation-duration: 9s; }
+  .deco__hoja--c { animation-duration: 8s; animation-delay: -3s; }
+  
+  @keyframes flotar {
+    from { transform: translateY(-8px) rotate(-4deg); }
+    to   { transform: translateY(8px)  rotate(4deg); }
+  }
+  
+  /* Ola inferior: mismo color que la sección de abajo (blanco) */
+  .portada__ola {
+    position: absolute;
+    left: 0;
+    bottom: -1px;
+    width: 100%;
+    height: clamp(40px, 7vw, 90px);
+    display: block;
+    pointer-events: none;
+  }
+  .portada__ola path { fill: var(--blanco); }
+  
+  /* Botones */
+  .portada__botones {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .75rem;
+  }
+  .boton--borde {
+    background: transparent;
+    color: var(--verde-oscuro);
+    box-shadow: inset 0 0 0 2px var(--verde-oscuro);   /* borde sin cambiar el tamaño */
+  }
+  .boton--borde:hover {
+    background: var(--verde-oscuro);
+    color: var(--blanco);
+  }
+  
+  /* 13. DESTACADOS ------------------------------------------- */
+  .destacados { padding-top: 1rem; }
+  .destacados__lista {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.25rem;
+    max-width: 900px;
+    margin-top: 1.5rem;
+  }
+  .tarjeta--mini {
+    text-align: center;
+    box-shadow: 0 6px 16px rgba(70, 135, 111, .15);
+    transition: transform .2s;
+  }
+  .tarjeta--mini:hover { transform: translateY(-4px); }
+  .tarjeta--mini .tarjeta__imagen { aspect-ratio: 4 / 3; }
+  .tarjeta--mini .tarjeta__nombre { font-size: 1.15rem; margin-bottom: .2rem; }
+  .tarjeta--mini .tarjeta__precio { font-size: 1.5rem; margin-bottom: .3rem; }
+  .tarjeta__enlace {
+    margin-top: auto;
+    font-weight: 800;
+    text-decoration: none;
+  }
+  .tarjeta__enlace:hover { text-decoration: underline; }
+  
+  @media (max-width: 720px) {
+    .portada__botones { justify-content: center; }
+  }
+  
+  @media (prefers-reduced-motion: reduce) {
+    .deco__hoja { animation: none; }
+    .tarjeta--mini { transition: none; }
+    .tarjeta--mini:hover { transform: none; }
+  }
+  
+  /* Descripción de la portada */
+  .portada__descripcion {
+    max-width: 46ch;      /* renglones cómodos de leer */
+    margin: 0 0 1.5rem;
+    font-size: 1.1rem;
+  }
+  @media (max-width: 720px) {
+    .portada__descripcion { margin-inline: auto; }
+  }
