@@ -432,3 +432,36 @@
   @media (max-width: 720px) {
     .portada__descripcion { margin-inline: auto; }
   }
+  
+  
+  /* 14. FILTROS, PEDIDO Y BOTONES <button> ------------------- */
+  button.boton { border: 0; cursor: pointer; font-family: inherit; }
+  
+  .filtros { display: flex; flex-wrap: wrap; gap: .5rem; margin: 1rem auto 0; }
+  .filtro {
+    padding: .4rem 1.1rem;
+    border: 2px solid var(--verde-oscuro);
+    border-radius: 999px;
+    background: var(--blanco);
+    color: var(--verde-oscuro);
+    font: inherit;
+    font-weight: 700;
+    cursor: pointer;
+  }
+  .filtro[aria-pressed="true"] { background: var(--verde-oscuro); color: var(--blanco); }
+  
+  .pedido { max-width: 40rem; }
+  .pedido__lista { list-style: none; margin: 1rem 0; padding: 0; display: grid; gap: .5rem; }
+  .pedido__lista li {
+    display: flex; align-items: center; justify-content: space-between; gap: 1rem;
+    padding: .6rem 1rem; background: var(--blanco);
+    border: 2px solid var(--verde-claro); border-radius: var(--radio);
+  }
+  .pedido__quitar {
+    border: 0; background: transparent; color: var(--gris);
+    font-size: 1.2rem; cursor: pointer;
+  }
+  .pedido__quitar:hover { color: var(--verde-oscuro); }
+  .pedido__vacio { color: var(--gris); justify-content: center; }
+  .pedido__total { font-size: 1.3rem; }
+  .boton[aria-disabled="true"] { opacity: .45; pointer-events: none; }
