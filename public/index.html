@@ -167,7 +167,19 @@
     <section id="contacto" class="contacto">
       <h2>Contactanos</h2>
       <ul>
-        <li>WhatsApp: <a href="https://wa.me/593XXXXXXXXX">+593 XXX XXX XXX</a></li>
+      <form id="form-contacto" class="formulario" novalidate>
+        <li>
+          <label for="contacto-nombre">Nombre</label>
+         <input id="contacto-nombre" name="nombre" type="text" required maxlength="80" autocomplete="name">
+        </li>
+        <li> 
+        <label for="contacto-telefono">Teléfono</label>
+        <input id="contacto-telefono" name="telefono" type="tel" maxlength="20" autocomplete="tel">
+        </li>
+        <button type="submit" class="boton">Enviar mensaje</button>
+        <p id="estado-contacto" role="status" aria-live="polite"></p>
+      </form>
+      <ul>
         <li>Instagram: <a href="https://www.instagram.com/cactea_suculentas/">@cactea_suculentas</a></li>
         <li>Ciudad: Guayaquil</li>
       </ul>
