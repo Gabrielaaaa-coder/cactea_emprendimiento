@@ -154,8 +154,7 @@ const contenedor = document.querySelector('.planta-fija');
 
 if (contenedor) {
   const planta = contenedor.querySelector('.planta-scroll');
-  const tallo  = contenedor.querySelector('.planta__tallo');
-  const piezas = contenedor.querySelectorAll('[data-inicio]'); // hojas y flor
+  const piezas = contenedor.querySelectorAll('[data-inicio]'); // tronco, brazos y flor
 
   const limitar = (n) => Math.min(1, Math.max(0, n));
 
@@ -167,13 +166,8 @@ if (contenedor) {
     setTimeout(() => contenedor.classList.remove(clase), milisegundos);
   }
 
-  // ----- Dibujo: tallo, hojas y flor según el progreso -----
+  // ----- Dibujo: tronco, brazos y flor según el progreso -----
   function dibujar(progreso) {
-    // El tallo crece hasta el 85% del recorrido; siempre asoma un brotecito
-    if (tallo) {
-      tallo.style.strokeDashoffset = 1 - Math.max(0.06, limitar(progreso / 0.85));
-    }
-
     piezas.forEach((pieza) => {
       const inicio   = parseFloat(pieza.dataset.inicio);
       const duracion = parseFloat(pieza.dataset.duracion || 0.12);   // cuánto tarda en crecer

@@ -22,7 +22,7 @@
     "nombre": "Set para regalar",
     "categoria": "regalos",
     "descripcion": "Varias suculentas listas para regalo.",
-    "precio": 12.0,
+    "precio": 12,
     "imagen": "img/producto-3.jpg",
     "destacado": true
   },
@@ -31,7 +31,7 @@
     "nombre": "Haworthia",
     "categoria": "suculentas",
     "descripcion": "Hojas con rayitas blancas. Vive bien con poca luz.",
-    "precio": 3.0,
+    "precio": 3,
     "imagen": "img/producto-4.jpg",
     "destacado": false
   },
@@ -40,7 +40,7 @@
     "nombre": "Nopal decorativo",
     "categoria": "cactus",
     "descripcion": "Cactus de palas planas, muy vistoso.",
-    "precio": 4.0,
+    "precio": 4,
     "imagen": "img/producto-5.jpg",
     "destacado": false
   },
@@ -49,8 +49,17 @@
     "nombre": "Mini jardín",
     "categoria": "regalos",
     "descripcion": "Maceta con varias suculentas combinadas.",
-    "precio": 15.0,
+    "precio": 15,
     "imagen": "img/producto-6.jpg",
+    "destacado": false
+  },
+  {
+    "id": 7,
+    "nombre": "Aloe mini",
+    "categoria": "suculentas",
+    "descripcion": "",
+    "precio": 4,
+    "imagen": "img/producto-1.jpg",
     "destacado": false
   }
 ]
