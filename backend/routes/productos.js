@@ -4,7 +4,7 @@ const mongoose = require('mongoose');
 const productoSchema = new mongoose.Schema(
   {
     nombre:      { type: String, required: true, trim: true },
-    categoria:   { type: String, enum: ['suculentas', 'cactus', 'regalos'], default: 'suculentas' },
+    categoria:   { type: String, enum: ['suculentas', 'cactus'], default: 'suculentas' },
     descripcion: { type: String, default: '' },
     precio:      { type: Number, required: true },
     imagen:      { type: String, default: 'img/producto-1.jpg' },

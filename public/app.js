@@ -18,14 +18,16 @@ let pedido = [];      // [{ id, nombre, precio, cantidad }]
 const dinero = (n) => `$${Number(n).toFixed(2)}`;
 
 // Tarjeta grande: copia la <template> y llena los datos
-function agregarAlPedido(producto) {
-  const existente = pedido.find((item) => item.id === producto._id);
-  if (existente) {
-    existente.cantidad++;
-  } else {
-    pedido.push({ id: producto._id, nombre: producto.nombre, precio: producto.precio, cantidad: 1 });
-  }
-  pintarPedido();
+function crearTarjeta(producto) {
+  const tarjeta = plantilla.content.cloneNode(true);
+  const img = tarjeta.querySelector('.tarjeta__imagen');
+  img.src = producto.imagen;
+  img.alt = producto.nombre;
+  tarjeta.querySelector('.tarjeta__nombre').textContent = producto.nombre;
+  tarjeta.querySelector('.tarjeta__descripcion').textContent = producto.descripcion;
+  tarjeta.querySelector('.tarjeta__precio').textContent = dinero(producto.precio);
+  tarjeta.querySelector('.tarjeta__pedir').addEventListener('click', () => agregarAlPedido(producto));
+  return tarjeta;
 }
 
 // Tarjeta pequeña de "favoritos": se crea elemento por elemento
@@ -70,11 +72,11 @@ function pintarProductos(categoria) {
 
 // ----- Pedido (como la to-do list: agregar y quitar elementos) -----
 function agregarAlPedido(producto) {
-  const existente = pedido.find((item) => item.id === producto.id);
+  const existente = pedido.find((item) => item.id === producto._id);
   if (existente) {
     existente.cantidad++;
   } else {
-    pedido.push({ id: producto.id, nombre: producto.nombre, precio: producto.precio, cantidad: 1 });
+    pedido.push({ id: producto._id, nombre: producto.nombre, precio: producto.precio, cantidad: 1 });
   }
   pintarPedido();
 }

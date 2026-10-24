@@ -14,7 +14,7 @@ const mongoose = require('mongoose');
 const Producto = require('./models/Producto');
 const Mensaje = require ('./models/Mensaje');
 const app = express();
-const PUERTO = process.env.PORT || 3000;
+
 
 app.use(cors());
 app.use(express.json());
