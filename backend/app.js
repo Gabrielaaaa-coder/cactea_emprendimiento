@@ -1,14 +1,13 @@
 // =========================================================
 // CACTEA · app.js  (API CON EXPRESS + MONGODB)
 // Instala una vez:  npm install     Ejecuta:  npm start
-// Abre http://localhost:3000 y verás la página completa.
 // =========================================================
 const path = require('path');
 require('dotenv').config({ path: path.join(__dirname, '.env') });
 const express = require('express');
 const cors = require('cors');
 const mongoose = require('mongoose');
-const Producto = require('../models/Producto');
+const Producto = require('./models/Producto');
 
 const app = express();
 const PUERTO = process.env.PORT || 3000;
