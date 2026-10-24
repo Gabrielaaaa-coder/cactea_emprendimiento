@@ -4,6 +4,10 @@
 // =========================================================
 const path = require('path');
 require('dotenv').config({ path: path.join(__dirname, '.env') });
+//estas son para la pagina admin
+const authRoutes = require('./routes/auth');
+const requiereAdmin = require('./middleware/auth');
+//================================
 const express = require('express');
 const cors = require('cors');
 const mongoose = require('mongoose');
@@ -14,6 +18,7 @@ const PUERTO = process.env.PORT || 3000;
 
 app.use(cors());
 app.use(express.json());
+app.use('/api', authRoutes);//admiiin
 app.use(express.static(path.join(__dirname, '..', 'public')));
 
 mongoose.set('bufferCommands', false);
@@ -86,7 +91,7 @@ app.post('/api/mensajes', async (req, res) => {
 });
  
 // POST /api/productos  -> agrega un producto nuevo
-app.post('/api/productos', async (req, res) => {
+app.post('/api/productos', requiereAdmin, async (req, res) => {
   try {
     const { nombre, categoria, descripcion, precio, imagen, destacado } = req.body;
     if (!nombre || typeof precio !== 'number') {
