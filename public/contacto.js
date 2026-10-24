@@ -13,12 +13,14 @@ if (formulario) {
     const datos = {
       nombre: formulario.nombre.value.trim(),
       correo: formulario.correo.value.trim(),
+      telefono: formulario.telefono.value.trim(),
+      asunto: formulario.asunto.value,
       mensaje: formulario.mensaje.value.trim(),
     };
 
-    // Validación rápida antes de molestar al servidor
-    if (!datos.nombre || !datos.correo || !datos.mensaje) {
-      estado.textContent = 'Por favor completa todos los campos.';
+    // Validación rápida antes de molestar al servidor (el teléfono es opcional)
+    if (!datos.nombre || !datos.correo || !datos.asunto || !datos.mensaje) {
+      estado.textContent = 'Por favor completa los campos obligatorios.';
       return;
     }
 

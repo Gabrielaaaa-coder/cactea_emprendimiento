@@ -1,6 +1,6 @@
 // =========================================================
 // CACTEA · main.js
-// 1) Cactus con personalidad (crece, se mece, salta)
+// 1) Cactuuuuus (crece, se mece, salta)
 // (Después agregaremos aquí el fetch a /api/productos)
 // =========================================================
 

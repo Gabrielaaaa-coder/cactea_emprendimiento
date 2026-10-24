@@ -465,3 +465,51 @@
   .pedido__vacio { color: var(--gris); justify-content: center; }
   .pedido__total { font-size: 1.3rem; }
   .boton[aria-disabled="true"] { opacity: .45; pointer-events: none; }
+  /* =========================================================
+   FORMULARIO DE CONTACTO
+   Pega esto al FINAL de public/styles.css
+   (usa las variables de color y fuente que ya tienes)
+   ========================================================= */
+
+.contacto__intro { margin-top: 1.25rem; }
+
+.formulario {
+  display: grid;            /* una casilla debajo de otra */
+  gap: .35rem;
+  max-width: 520px;
+  margin-top: 1rem;
+}
+
+.formulario label {
+  font-weight: 800;
+  color: var(--texto);
+  margin-top: .6rem;        /* aire entre una casilla y la siguiente */
+}
+
+.formulario input,
+.formulario select,
+.formulario textarea {
+  width: 100%;
+  box-sizing: border-box;   /* el borde no hace la casilla más ancha que el formulario */
+  padding: .7rem .9rem;
+  font: inherit;
+  color: var(--texto);
+  background: var(--blanco);
+  border: 2px solid var(--verde-claro);
+  border-radius: 12px;
+}
+
+.formulario textarea { resize: vertical; min-height: 7rem; }
+
+.formulario input:focus,
+.formulario select:focus,
+.formulario textarea:focus {
+  outline: none;
+  border-color: var(--verde-oscuro);
+  box-shadow: 0 0 0 3px var(--verde-claro);
+}
+
+.formulario .boton { justify-self: start; margin-top: 1rem; }
+.formulario .boton:disabled { opacity: .6; cursor: wait; }
+
+.formulario__estado { min-height: 1.5em; margin: .5rem 0 0; font-weight: 700; color: var(--verde-oscuro); }

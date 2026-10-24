@@ -1,6 +1,6 @@
 // =========================================================
 // CACTEA · app.js  (API CON EXPRESS + MONGODB)
-// Instala una vez:  npm install     Ejecuta:  npm start
+// T-T
 // =========================================================
 const path = require('path');
 require('dotenv').config({ path: path.join(__dirname, '.env') });
@@ -8,7 +8,7 @@ const express = require('express');
 const cors = require('cors');
 const mongoose = require('mongoose');
 const Producto = require('./models/Producto');
-
+const Mensaje = require ('./models/Mensaje');
 const app = express();
 const PUERTO = process.env.PORT || 3000;
 
@@ -66,7 +66,25 @@ app.get('/api/productos/:id', async (req, res) => {
     res.status(404).json({ error: 'Producto no encontrado' });
   }
 });
-
+//Esto es para formulario
+app.post('/api/mensajes', async (req, res) => {
+  try {
+    const { nombre, correo, telefono, asunto, mensaje } = req.body;
+ 
+    if (!nombre || !correo || !asunto || !mensaje) {
+      return res.status(400).json({ error: 'Completa nombre, correo, asunto y mensaje.' });
+    }
+ 
+    const nuevo = await Mensaje.create({ nombre, correo, telefono, asunto, mensaje });
+    res.status(201).json({ ok: true, id: nuevo._id });
+  } catch (err) {
+    console.error('ERROR POST /api/mensajes:', err.message);
+    // Si Mongoose rechazó los datos (asunto inválido, texto muy largo...), es culpa del pedido
+    const codigo = err.name === 'ValidationError' ? 400 : 500;
+    res.status(codigo).json({ error: 'No se pudo guardar el mensaje.' });
+  }
+});
+ 
 // POST /api/productos  -> agrega un producto nuevo
 app.post('/api/productos', async (req, res) => {
   try {

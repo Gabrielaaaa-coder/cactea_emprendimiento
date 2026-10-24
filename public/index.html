@@ -4,11 +4,12 @@
   <!-- Configuración básica de la página -->
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Cactea </title>
+  <title>Cactea · Vivero orgánico</title>
   <meta name="description" content="Cactea, vivero orgánico. Venta de suculentas y cactus.">
   <link rel="stylesheet" href="styles.css">
   <script src="api.js" defer></script>
   <script src="app.js" defer></script>
+  <script src="contacto.js" defer></script>
 </head>
 
 <body>
@@ -25,7 +26,7 @@
         <li><a href="#productos">Productos</a></li>
         <li><a href="#pedido">Mi pedido</a></li>
         <li><a href="#cuidados">Cuidados</a></li>
-        <li><a href="#contacto">Contactanos</a></li>
+        <li><a href="#contacto">Contáctanos</a></li>
       </ul>
     </nav>
   </header>
@@ -78,10 +79,10 @@
     <section id="nosotros" class="nosotros">
       <h2>Quiénes somos</h2>
       <p>
-        Todo surgio desde una pequeña terraza en el suburbio de Guayaquil. El amor a las plantas y a la naturaleza nos llevo a crear a un pequeño osais que poco a poco se fue transformando en una forma de vida
+        Todo surgió desde una pequeña terraza en el suburbio de Guayaquil. El amor a las plantas y a la naturaleza nos llevó a crear un pequeño oasis que poco a poco se fue transformando en una forma de vida.
       </p>
       <p>
-       Cada planta contiene una parte del corazon de todos los que conformamos cactea.
+        Cada planta contiene una parte del corazón de todos los que conformamos Cactea.
       </p>
     </section>
 
@@ -163,26 +164,48 @@
       </div>
     </section>
 
-    <!-- 6. CONTACTO -->
+    <!-- 6. CONTACTO: datos de contacto + formulario que guarda el mensaje en la base de datos -->
     <section id="contacto" class="contacto">
-      <h2>Contactanos</h2>
+      <h2>Contáctanos</h2>
+
       <ul>
-      <form id="form-contacto" class="formulario" novalidate>
-        <li>
-          <label for="contacto-nombre">Nombre</label>
-         <input id="contacto-nombre" name="nombre" type="text" required maxlength="80" autocomplete="name">
-        </li>
-        <li> 
-        <label for="contacto-telefono">Teléfono</label>
-        <input id="contacto-telefono" name="telefono" type="tel" maxlength="20" autocomplete="tel">
-        </li>
-        <button type="submit" class="boton">Enviar mensaje</button>
-        <p id="estado-contacto" role="status" aria-live="polite"></p>
-      </form>
-      <ul>
+        <!-- TODO: cambia las X por tu número real, sin espacios ni "+" (ej.: 593991234567) -->
+        <li>WhatsApp: <a href="https://wa.me/593XXXXXXXXX">+593 XXX XXX XXX</a></li>
         <li>Instagram: <a href="https://www.instagram.com/cactea_suculentas/">@cactea_suculentas</a></li>
         <li>Ciudad: Guayaquil</li>
       </ul>
+
+      <p class="contacto__intro">¿Tienes una duda o quieres un pedido especial? Escríbenos y te respondemos pronto.</p>
+
+      <!-- El <form> va FUERA de cualquier <ul>. Cada casilla = label + input con su "name" -->
+      <form id="form-contacto" class="formulario" novalidate>
+
+        <label for="contacto-nombre">Nombre</label>
+        <input id="contacto-nombre" name="nombre" type="text" required maxlength="80" autocomplete="name">
+
+        <label for="contacto-correo">Correo electrónico</label>
+        <input id="contacto-correo" name="correo" type="email" required maxlength="120" autocomplete="email">
+
+        <label for="contacto-telefono">Teléfono (opcional)</label>
+        <input id="contacto-telefono" name="telefono" type="tel" maxlength="20" autocomplete="tel">
+
+        <label for="contacto-asunto">Asunto</label>
+        <select id="contacto-asunto" name="asunto" required>
+          <option value="">Elige una opción</option>
+          <option value="consulta">Consulta</option>
+          <option value="pedido-especial">Pedido especial</option>
+          <option value="regalos">Regalos y eventos</option>
+          <option value="otro">Otro</option>
+        </select>
+
+        <label for="contacto-mensaje">Mensaje</label>
+        <textarea id="contacto-mensaje" name="mensaje" rows="5" required maxlength="1000"></textarea>
+
+        <button type="submit" class="boton">Enviar mensaje</button>
+
+        <!-- Aquí contacto.js escribe si se envió bien o si hubo un error -->
+        <p id="estado-contacto" class="formulario__estado" role="status" aria-live="polite"></p>
+      </form>
     </section>
 
   </main>
