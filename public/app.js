@@ -2,6 +2,7 @@
 // CACTEA · app.js  (MANIPULACIÓN DEL DOM)
 // 1) Productos, filtros y pedido
 // 2) Cactus con personalidad
+// 3) Fotos que aparecen al hacer scroll
 // =========================================================
 
 // ---------- 1) PRODUCTOS, FILTROS Y PEDIDO ----------
@@ -70,7 +71,18 @@ function pintarProductos(categoria) {
   listaProductos.replaceChildren(...visibles.map(crearTarjeta));
 }
 
-// ----- Pedido (como la to-do list: agregar y quitar elementos) -----
+// ----- Pedido -----
+let ultimoCambiado = null;  // producto que acaba de cambiar (para el "pop")
+let unidadesAnteriores = 0; // para saber cuándo rebota la burbujita del menú
+
+// Ayudante: crea un elemento con clase y texto en una sola línea
+function crear(etiqueta, clase, texto) {
+  const el = document.createElement(etiqueta);
+  if (clase) el.className = clase;
+  if (texto !== undefined) el.textContent = texto;
+  return el;
+}
+
 function agregarAlPedido(producto) {
   const existente = pedido.find((item) => item.id === producto._id);
   if (existente) {
@@ -78,6 +90,19 @@ function agregarAlPedido(producto) {
   } else {
     pedido.push({ id: producto._id, nombre: producto.nombre, precio: producto.precio, cantidad: 1 });
   }
+  ultimoCambiado = producto._id;
+  pintarPedido();
+}
+
+function cambiarCantidad(id, cambio) {
+  const item = pedido.find((i) => i.id === id);
+  if (!item) return;
+  item.cantidad += cambio;
+  if (item.cantidad <= 0) {
+    quitarDelPedido(id);
+    return;
+  }
+  ultimoCambiado = id;
   pintarPedido();
 }
 
@@ -86,40 +111,88 @@ function quitarDelPedido(id) {
   pintarPedido();
 }
 
-function pintarPedido() {
-  listaPedido.replaceChildren();
+function crearBoton(texto, etiqueta, accion, clase) {
+  const boton = crear('button', clase, texto);
+  boton.type = 'button';
+  boton.setAttribute('aria-label', etiqueta);
+  boton.addEventListener('click', accion);
+  return boton;
+}
 
-  if (pedido.length === 0) {
-    const vacio = document.createElement('li');
-    vacio.className = 'pedido__vacio';
-    vacio.textContent = 'Aún no has agregado nada 🌱';
-    listaPedido.append(vacio);
+function crearFilaVacia() {
+  const fila = crear('li', 'pedido__vacio');
+  const icono = crear('span', 'pedido__vacio-icono', '🌱');
+  icono.setAttribute('aria-hidden', 'true');
+  const enlace = crear('a', 'pedido__vacio-enlace', 'Ver productos');
+  enlace.href = '#productos'; // cambia si tu sección de productos tiene otro id
+  fila.append(icono, crear('span', '', 'Aún no has agregado nada'), enlace);
+  return fila;
+}
+
+function crearFilaProducto(item) {
+  const fila = crear('li', 'pedido__item');
+  if (item.id === ultimoCambiado) fila.classList.add('pedido__item--nuevo');
+
+  const cantidad = crear('div', 'pedido__cantidad');
+  cantidad.append(
+    crearBoton('−', `Quitar una unidad de ${item.nombre}`, () => cambiarCantidad(item.id, -1)),
+    crear('span', '', item.cantidad),
+    crearBoton('+', `Agregar una unidad de ${item.nombre}`, () => cambiarCantidad(item.id, 1))
+  );
+
+  fila.append(
+    crear('span', 'pedido__nombre', item.nombre),
+    cantidad,
+    crear('span', 'pedido__subtotal', dinero(item.precio * item.cantidad)),
+    crearBoton('✕', `Quitar ${item.nombre}`, () => quitarDelPedido(item.id), 'pedido__quitar')
+  );
+  return fila;
+}
+
+// Burbujita con la cantidad en el link "Mi pedido" del menú
+function actualizarContador(unidades) {
+  const enlace = document.querySelector('a[href="#pedido"]');
+  if (!enlace) return;
+
+  let burbuja = enlace.querySelector('.contador-pedido');
+  if (!burbuja) {
+    burbuja = crear('span', 'contador-pedido');
+    enlace.append(burbuja);
   }
 
-  pedido.forEach((item) => {
-    const fila = document.createElement('li');
-    const texto = document.createElement('span');
-    texto.textContent = `${item.cantidad} × ${item.nombre} — ${dinero(item.precio * item.cantidad)}`;
+  burbuja.textContent = unidades;
+  burbuja.hidden = unidades === 0;
 
-    const quitar = document.createElement('button');
-    quitar.type = 'button';
-    quitar.className = 'pedido__quitar';
-    quitar.textContent = '✕';
-    quitar.setAttribute('aria-label', `Quitar ${item.nombre}`);
-    quitar.addEventListener('click', () => quitarDelPedido(item.id));
+  if (unidades > unidadesAnteriores) {
+    burbuja.classList.remove('rebote');
+    void burbuja.offsetWidth; // reinicia la animación
+    burbuja.classList.add('rebote');
+  }
+  unidadesAnteriores = unidades;
+}
 
-    fila.append(texto, quitar);
-    listaPedido.append(fila);
-  });
+function pintarPedido() {
+  // 1. Lista
+  listaPedido.replaceChildren();
+  if (pedido.length === 0) {
+    listaPedido.append(crearFilaVacia());
+  } else {
+    pedido.forEach((item) => listaPedido.append(crearFilaProducto(item)));
+  }
+  ultimoCambiado = null;
 
+  // 2. Total y contador
   const total = pedido.reduce((suma, item) => suma + item.precio * item.cantidad, 0);
+  const unidades = pedido.reduce((suma, item) => suma + item.cantidad, 0);
   totalPedido.textContent = dinero(total);
+  actualizarContador(unidades);
 
-  // Mensaje de WhatsApp con el resumen del pedido
+  // 3. Botón de WhatsApp
   const lineas = pedido.map((i) => `• ${i.cantidad} × ${i.nombre} (${dinero(i.precio * i.cantidad)})`);
   const mensaje = `Hola Cactea, quiero hacer este pedido:\n${lineas.join('\n')}\nTotal: ${dinero(total)}`;
   botonEnviar.href = `https://wa.me/${WHATSAPP}?text=${encodeURIComponent(mensaje)}`;
   botonEnviar.setAttribute('aria-disabled', pedido.length === 0 ? 'true' : 'false');
+  botonEnviar.tabIndex = pedido.length === 0 ? -1 : 0;
 }
 
 // ----- Filtros -----
@@ -147,7 +220,6 @@ async function iniciar() {
   }
 }
 iniciar();
-
 
 // ---------- 2) CACTUS CON PERSONALIDAD ----------
 const contenedor = document.querySelector('.planta-fija');
@@ -231,10 +303,9 @@ if (contenedor) {
     window.addEventListener('resize', actualizar);
     actualizar();   // estado inicial al cargar
   }
-
 }
-// Pega esto en tu app.js (o en un archivo aparte y enlázalo antes de </body>)
 
+// ---------- 3) FOTOS QUE APARECEN AL HACER SCROLL (Quiénes somos) ----------
 // Cuando un elemento con clase "reveal" entra en pantalla, le pone la clase "visible".
 // El CSS se encarga de animarlo.
 function activarRevelado() {

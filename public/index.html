@@ -144,13 +144,18 @@
       </template>
     </section>
 
-    <!-- 4b. MI PEDIDO: lista que se arma con JS y se envía por WhatsApp -->
-    <section id="pedido" class="pedido">
-      <h2>Mi pedido</h2>
-      <ul id="lista-pedido" class="pedido__lista"></ul>
-      <p class="pedido__total">Total: <strong id="total-pedido">$0.00</strong></p>
-      <a id="enviar-pedido" class="boton" href="#" target="_blank" rel="noopener" aria-disabled="true">Enviar pedido por WhatsApp</a>
-    </section>
+ <!-- 4b. MI PEDIDO: lista que se arma con JS y se envía por WhatsApp -->
+ <section id="pedido" class="pedido">
+  <h2>Mi pedido</h2>
+  <ul id="lista-pedido" class="pedido__lista"></ul>
+  <p class="pedido__total">Total: <strong id="total-pedido">$0.00</strong></p>
+  <a id="enviar-pedido" class="boton" href="#" target="_blank" rel="noopener" aria-disabled="true">
+    <svg class="boton__icono" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false">
+      <path fill="currentColor" d="M20 2H4a2 2 0 0 0-2 2v18l4-4h14a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2z"/>
+    </svg>
+    Enviar pedido por WhatsApp
+  </a>
+</section>
 
     <!-- 5. CUIDADOS: consejos para suculentas y cactus. Copia un <article> para agregar más -->
     <section id="cuidados" class="cuidados">

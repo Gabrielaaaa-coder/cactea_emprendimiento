@@ -449,23 +449,7 @@
     cursor: pointer;
   }
   .filtro[aria-pressed="true"] { background: var(--verde-oscuro); color: var(--blanco); }
-  
-  .pedido { max-width: 40rem; }
-  .pedido__lista { list-style: none; margin: 1rem 0; padding: 0; display: grid; gap: .5rem; }
-  .pedido__lista li {
-    display: flex; align-items: center; justify-content: space-between; gap: 1rem;
-    padding: .6rem 1rem; background: var(--blanco);
-    border: 2px solid var(--verde-claro); border-radius: var(--radio);
-  }
-  .pedido__quitar {
-    border: 0; background: transparent; color: var(--gris);
-    font-size: 1.2rem; cursor: pointer;
-  }
-  .pedido__quitar:hover { color: var(--verde-oscuro); }
-  .pedido__vacio { color: var(--gris); justify-content: center; }
-  .pedido__total { font-size: 1.3rem; }
-  .boton[aria-disabled="true"] { opacity: .45; pointer-events: none; }
-  /* =========================================================
+    /* =========================================================
    FORMULARIO DE CONTACTO
    Pega esto al FINAL de public/styles.css
    (usa las variables de color y fuente que ya tienes)
@@ -648,4 +632,192 @@
     transition: none;
   }
   .reveal.visible:hover { transform: rotate(var(--rot)); }
+}
+/* En tu styles.css: BORRA tus reglas .pedido, .pedido__lista, .pedido__vacio,
+   .pedido__total y .pedido__quitar, y pega esto al final. */
+
+/* ---------- Tarjeta ---------- */
+.pedido {
+  width: min(100% - 2rem, 620px); /* ancho propio: no depende del contenedor */
+  box-sizing: border-box;
+  margin: 3rem auto;
+  padding: 2rem 1.5rem;
+  background: #E0E5CF;
+  border-radius: 24px;
+  box-shadow: 0 10px 28px rgba(70, 135, 111, 0.18);
+  text-align: center;
+}
+.pedido h2 { margin-top: 0; }
+
+.pedido__lista {
+  list-style: none;
+  margin: 1.2rem 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+/* ---------- Estado vacío ---------- */
+.pedido__vacio {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 1.6rem 1rem;
+  background: #fff;
+  border: 2px dashed #C1D1B5;
+  border-radius: 14px;
+  color: #737373;
+}
+.pedido__vacio-icono {
+  font-size: 3rem;
+  line-height: 1;
+  transform-origin: bottom center;
+  animation: mecer 3.5s ease-in-out infinite;
+}
+.pedido__vacio-enlace {
+  display: inline-block;
+  margin-top: 0.2rem;
+  padding: 0.5rem 1.3rem;
+  border-radius: 999px;
+  background: #46876F;
+  color: #fff;
+  font-weight: 700;
+  text-decoration: none;
+  transition: background 0.2s ease;
+}
+.pedido__vacio-enlace:hover { background: #678F73; }
+
+/* ---------- Filas ---------- */
+.pedido__item {
+  display: grid;
+  grid-template-columns: 1fr auto auto auto;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.7rem 0.9rem;
+  background: #fff;
+  border-radius: 14px;
+  text-align: left;
+}
+.pedido__nombre { font-weight: 600; }
+
+.pedido__cantidad {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.pedido__cantidad button {
+  width: 28px;
+  height: 28px;
+  padding: 0;
+  border: 1px solid #678F73;
+  border-radius: 50%;
+  background: #fff;
+  color: #46876F;
+  font-size: 1.1rem;
+  line-height: 1;
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+.pedido__cantidad button:hover { background: #46876F; color: #fff; }
+
+.pedido__subtotal {
+  min-width: 4.5rem;
+  text-align: right;
+  font-weight: 700;
+  color: #46876F;
+}
+.pedido__quitar {
+  border: 0;
+  background: transparent;
+  color: #737373;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+.pedido__quitar:hover { color: #b34a4a; }
+
+/* La fila que acaba de agregarse hace un pequeño "pop" */
+.pedido__item--nuevo { animation: pop 0.35s ease-out; }
+
+/* ---------- Total ---------- */
+.pedido__total {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin: 0 0 1.2rem;
+  padding: 0 0.4rem;
+  font-size: 1.1rem;
+}
+#total-pedido { font-size: 1.7rem; color: #46876F; }
+
+/* ---------- Botón de WhatsApp ---------- */
+.pedido .boton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 0.9rem 1.4rem;
+  border-radius: 999px;
+  background: #46876F;
+  color: #fff;
+  font-size: 1.05rem;
+  text-decoration: none;
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+.pedido .boton:hover { background: #678F73; transform: translateY(-2px); }
+.pedido .boton[aria-disabled="true"] {
+  background: #B5C9BD;
+  pointer-events: none;   /* no abre WhatsApp si el pedido está vacío */
+  cursor: not-allowed;
+}
+
+/* ---------- Burbujita del menú ---------- */
+.contador-pedido {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 1.3em;
+  height: 1.3em;
+  padding: 0 0.3em;
+  margin-left: 0.35rem;
+  border-radius: 999px;
+  background: #46876F;
+  color: #fff;
+  font-size: 0.75rem;
+  vertical-align: middle;
+}
+.contador-pedido[hidden] { display: none; }
+.contador-pedido.rebote { animation: rebote 0.45s ease; }
+
+/* ---------- Animaciones ---------- */
+@keyframes pop {
+  0%   { transform: scale(0.92); opacity: 0; }
+  60%  { transform: scale(1.03); opacity: 1; }
+  100% { transform: scale(1); }
+}
+@keyframes rebote {
+  0%, 100% { transform: scale(1); }
+  40%      { transform: scale(1.5); }
+  70%      { transform: scale(0.9); }
+}
+@keyframes mecer {
+  0%, 100% { transform: rotate(-4deg); }
+  50%      { transform: rotate(4deg); }
+}
+
+/* ---------- Celular ---------- */
+@media (max-width: 480px) {
+  .pedido { padding: 1.5rem 1rem; }
+  .pedido__item { grid-template-columns: auto 1fr auto; }
+  .pedido__nombre { grid-column: 1 / -1; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pedido__vacio-icono,
+  .pedido__item--nuevo,
+  .contador-pedido.rebote { animation: none; }
 }
