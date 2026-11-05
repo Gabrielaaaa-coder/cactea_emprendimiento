@@ -231,4 +231,34 @@ if (contenedor) {
     window.addEventListener('resize', actualizar);
     actualizar();   // estado inicial al cargar
   }
+
 }
+// Pega esto en tu app.js (o en un archivo aparte y enlázalo antes de </body>)
+
+// Cuando un elemento con clase "reveal" entra en pantalla, le pone la clase "visible".
+// El CSS se encarga de animarlo.
+function activarRevelado() {
+  const elementos = document.querySelectorAll('.reveal');
+
+  // Si el navegador no soporta IntersectionObserver, mostramos todo directo
+  if (!('IntersectionObserver' in window)) {
+    elementos.forEach((el) => el.classList.add('visible'));
+    return;
+  }
+
+  const observador = new IntersectionObserver(
+    (entradas) => {
+      entradas.forEach((entrada) => {
+        if (entrada.isIntersecting) {
+          entrada.target.classList.add('visible');
+          observador.unobserve(entrada.target); // solo anima una vez
+        }
+      });
+    },
+    { threshold: 0.25 } // cuando se ve el 25% de la foto
+  );
+
+  elementos.forEach((el) => observador.observe(el));
+}
+
+activarRevelado();

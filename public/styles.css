@@ -513,3 +513,139 @@
 .formulario .boton:disabled { opacity: .6; cursor: wait; }
 
 .formulario__estado { min-height: 1.5em; margin: .5rem 0 0; font-weight: 700; color: var(--verde-oscuro); }
+/* Pega esto al final de tu styles.css */
+
+.nosotros {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 4rem 1.5rem;
+  overflow-x: hidden; /* evita scroll horizontal mientras las fotos entran */
+}
+
+.nosotros-grid {
+  width: 100%;
+  max-width: 1100px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 520px) minmax(0, 1fr);
+  gap: 2rem;
+  align-items: center;
+}
+
+.nosotros-texto {
+  text-align: center;
+}
+
+/* ---------- Columnas de fotos ---------- */
+.fotos {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+.fotos-izq { align-items: flex-end; }
+.fotos-der { align-items: flex-start; }
+
+/* Escalonado: la segunda foto de cada lado queda un poco desplazada */
+.fotos-izq .polaroid:nth-child(2) { margin-right: 1.5rem; }
+.fotos-der .polaroid:nth-child(2) { margin-left: 1.5rem; }
+
+/* ---------- Polaroid ---------- */
+.polaroid {
+  margin: 0;
+  width: 170px;
+  padding: 10px 10px 8px;
+  background: #fff;
+  border-radius: 4px;
+  box-shadow: 0 6px 18px rgba(70, 135, 111, 0.22);
+  transform: rotate(var(--rot, 0deg));
+}
+
+.polaroid img,
+.foto-placeholder {
+  display: block;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  border-radius: 2px;
+}
+
+.polaroid figcaption {
+  margin-top: 8px;
+  text-align: center;
+  font-size: 0.85rem;
+  color: #737373;
+}
+
+/* Espacio de prueba (se ve mientras no hay fotos) */
+.foto-placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  background: linear-gradient(135deg, #C1D1B5, #E0E5CF);
+  color: #678F73;
+}
+.foto-placeholder span { font-size: 2.2rem; }
+.foto-placeholder small { font-size: 0.75rem; }
+
+/* ---------- Animación de entrada ---------- */
+.reveal {
+  opacity: 0;
+  transition:
+    opacity 0.8s ease,
+    transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+  transition-delay: var(--delay, 0s);
+}
+.reveal-izq { transform: translateX(-70px) rotate(calc(var(--rot) - 8deg)); }
+.reveal-der { transform: translateX(70px) rotate(calc(var(--rot) + 8deg)); }
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateX(0) rotate(var(--rot));
+}
+
+/* Al pasar el mouse la foto se endereza y sube un poquito */
+.reveal.visible:hover {
+  transform: translateY(-6px) rotate(0deg) scale(1.04);
+  transition-delay: 0s;
+  box-shadow: 0 12px 24px rgba(70, 135, 111, 0.3);
+}
+
+/* ---------- Celular y tablet ---------- */
+@media (max-width: 860px) {
+  .nosotros-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+  .nosotros-texto { order: 1; }
+  .fotos-izq { order: 2; }
+  .fotos-der { order: 3; }
+
+  .fotos {
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+  }
+  .fotos-izq .polaroid:nth-child(2),
+  .fotos-der .polaroid:nth-child(2) { margin: 0; }
+
+  .polaroid { width: 140px; }
+
+  /* En pantallas angostas entran desde abajo en vez de los lados */
+  .reveal-izq,
+  .reveal-der { transform: translateY(40px) rotate(var(--rot)); }
+}
+
+/* Respeta a quien pidió menos movimiento en su dispositivo */
+@media (prefers-reduced-motion: reduce) {
+  .reveal,
+  .reveal-izq,
+  .reveal-der {
+    opacity: 1;
+    transform: rotate(var(--rot));
+    transition: none;
+  }
+  .reveal.visible:hover { transform: rotate(var(--rot)); }
+}
