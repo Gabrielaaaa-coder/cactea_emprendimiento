@@ -309,7 +309,8 @@ if (contenedor) {
 // Cuando un elemento con clase "reveal" entra en pantalla, le pone la clase "visible".
 // El CSS se encarga de animarlo.
 function activarRevelado() {
-  const elementos = document.querySelectorAll('.reveal');
+  document.documentElement.classList.add('js'); // avisa al CSS que el JS funciona
+  const elementos = document.querySelectorAll('.reveal, .aparece');
 
   // Si el navegador no soporta IntersectionObserver, mostramos todo directo
   if (!('IntersectionObserver' in window)) {

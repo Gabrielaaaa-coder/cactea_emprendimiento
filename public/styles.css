@@ -154,23 +154,131 @@
     text-align: center;
   }
   
-  /* CUIDADOS */
-  .cuidados { background: var(--crema); }
-  .cuidados__intro { max-width: 62ch; text-align: center; }
+/* En tu styles.css: BORRA tus reglas viejas de .cuidados__lista y .cuidado
+   (y .cuidado h3 / .cuidado p si las tienes) y pega esto al final. */
+
+   .cuidados {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 4rem 1.5rem;
+    background: #E0E5CF;   /* el fondo crema de la sección */
+    text-align: center;
+  }
+  .cuidados__intro {
+    max-width: 560px;
+    margin: 0.5rem auto 2.5rem;
+  }
+  
+  /* ---------- Cuadrícula: 4 columnas, dos tarjetas anchas ---------- */
   .cuidados__lista {
+    width: 100%;
+    max-width: 1100px;
+    margin: 0 auto;
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-    gap: 1.5rem;
-    margin-top: 2rem;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 1.2rem;
+    text-align: left;
   }
+  
   .cuidado {
-    padding: 1.25rem;
-    background: var(--blanco);
-    border: 2px solid var(--verde-claro);
-    border-radius: var(--radio);
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+    padding: 1.4rem;
+    background: #fff;
+    border: 1px solid #C1D1B5;
+    border-radius: 20px;
   }
-  .cuidado h3 { margin-bottom: .4rem; }
-  .cuidado p { margin: 0; }
+  .cuidado--ancho,
+  .cuidado--destacado { grid-column: span 2; }
+  
+  .cuidado h3 {
+    margin: 0;
+    font-size: 1.25rem;
+    color: #46876F;
+  }
+  .cuidado p {
+    margin: 0;
+    line-height: 1.55;
+  }
+  
+  /* ---------- Icono dentro de un círculo ---------- */
+  .cuidado__icono {
+    display: grid;
+    place-items: center;
+    width: 54px;
+    height: 54px;
+    border-radius: 50%;
+    background: #E0E5CF;
+    font-size: 1.7rem;
+    line-height: 1;
+    transition: transform 0.3s ease;
+  }
+  .cuidado:hover .cuidado__icono { transform: rotate(-12deg) scale(1.12); }
+  
+  /* ---------- Dato rápido ---------- */
+  .cuidado .cuidado__dato {
+    align-self: flex-start;
+    padding: 0.2rem 0.75rem;
+    border-radius: 999px;
+    background: #E0E5CF;
+    color: #46876F;
+    font-size: 0.85rem;
+    font-weight: 700;
+    line-height: 1.4;
+  }
+  
+  /* ---------- Tarjeta destacada (Riego) ---------- */
+  .cuidado--destacado {
+    background: #46876F;
+    border-color: #46876F;
+    color: #fff;
+  }
+  .cuidado--destacado h3 { color: #fff; font-size: 1.5rem; }
+  .cuidado--destacado p { font-size: 1.05rem; }
+  .cuidado--destacado .cuidado__icono { background: rgba(255, 255, 255, 0.2); }
+  .cuidado--destacado .cuidado__dato {
+    background: rgba(255, 255, 255, 0.22);
+    color: #fff;
+  }
+  
+  /* ---------- Entrada escalonada al llegar a la sección ----------
+     Solo se esconden si el JS está funcionando (clase "js" en <html>),
+     así que si algo falla, las tarjetas se ven igual. */
+  .js .aparece {
+    opacity: 0;
+    transform: translateY(26px);
+    transition:
+      opacity 0.6s ease,
+      transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+    transition-delay: calc(var(--i, 0) * 0.09s);
+  }
+  .js .aparece.visible {
+    opacity: 1;
+    transform: none;
+  }
+  
+  /* ---------- Tablet y celular ---------- */
+  @media (max-width: 900px) {
+    .cuidados__lista {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      grid-auto-flow: dense; /* rellena los huecos que dejan las tarjetas anchas */
+    }
+  }
+  @media (max-width: 560px) {
+    .cuidados__lista { grid-template-columns: 1fr; }
+    .cuidado--ancho,
+    .cuidado--destacado { grid-column: span 1; }
+  }
+  
+  @media (prefers-reduced-motion: reduce) {
+    .js .aparece {
+      opacity: 1;
+      transform: none;
+      transition: none;
+    }
+    .cuidado:hover .cuidado__icono { transform: none; }
+  }
   
   /* 8. PRODUCTOS ------------------------------------------- */
   .productos__lista {
