@@ -26,10 +26,10 @@
    la fuente de respaldo. */
    @font-face {
     font-family: "Adigiana Toybox";
-    src: url("fonts/AdigianaToybox.woff2") format("woff2"),
-         url("fonts/AdigianaToybox.ttf") format("truetype");
+    src: url("fonts/AdigianaToybox.ttf") format("truetype");
     font-display: swap;
   }
+  
   @font-face {
     font-family: "Bimbo";
     src: url("fonts/Bimbo.ttf") format("truetype");
