@@ -129,6 +129,7 @@
       </div>
 
       <div id="lista-productos" class="productos__lista" aria-live="polite">
+       // <!-- JavaScript pide los productos a la API (/api/productos) y los dibuja aquí -->//
         <p class="productos__estado">Cargando productos...</p>
       </div>
 
@@ -212,49 +213,92 @@
       </div>
     </section>
 
-    <!-- 6. CONTACTO: datos de contacto + formulario que guarda el mensaje en la base de datos -->
-    <section id="contacto" class="contacto">
-      <h2>Contáctanos</h2>
+<!-- 6. CONTACTO: datos de contacto + formulario que guarda el mensaje en la base de datos -->
+<section id="contacto" class="contacto">
+  <h2>Contáctanos</h2>
 
-      <ul>
-        <!-- TODO: cambia las X por tu número real, sin espacios ni "+" (ej.: 593991234567) -->
-        <li>WhatsApp: <a href="https://wa.me/593XXXXXXXXX">+593 XXX XXX XXX</a></li>
-        <li>Instagram: <a href="https://www.instagram.com/cactea_suculentas/">@cactea_suculentas</a></li>
-        <li>Ciudad: Guayaquil</li>
-      </ul>
+  <div class="contacto__tarjeta">
 
+    <!-- Panel verde: bienvenida + datos de contacto -->
+    <div class="contacto__panel">
+      <h3>Hablemos</h3>
       <p class="contacto__intro">¿Tienes una duda o quieres un pedido especial? Escríbenos y te respondemos pronto.</p>
+
+      <ul class="contacto__datos">
+        <!-- TODO: cambia las X por tu número real, sin espacios ni "+" (ej.: 593991234567) -->
+        <li>
+          <a href="https://wa.me/593XXXXXXXXX" target="_blank" rel="noopener">
+            <span class="contacto__icono" aria-hidden="true">💬</span>
+            <span><small>WhatsApp</small>+593 XXX XXX XXX</span>
+          </a>
+        </li>
+        <li>
+          <a href="https://www.instagram.com/cactea_suculentas/" target="_blank" rel="noopener">
+            <span class="contacto__icono" aria-hidden="true">📸</span>
+            <span><small>Instagram</small>@cactea_suculentas</span>
+          </a>
+        </li>
+        <li class="contacto__dato">
+          <span class="contacto__icono" aria-hidden="true">📍</span>
+          <span><small>Ciudad</small>Guayaquil</span>
+        </li>
+      </ul>
+    </div>
+
+    <!-- Lado blanco: formulario (o confirmación al enviar) -->
+    <div class="contacto__formulario">
 
       <!-- El <form> va FUERA de cualquier <ul>. Cada casilla = label + input con su "name" -->
       <form id="form-contacto" class="formulario" novalidate>
 
-        <label for="contacto-nombre">Nombre</label>
-        <input id="contacto-nombre" name="nombre" type="text" required maxlength="80" autocomplete="name">
+        <div class="campo">
+          <label for="contacto-nombre">Nombre</label>
+          <input id="contacto-nombre" name="nombre" type="text" required maxlength="80" autocomplete="name">
+        </div>
 
-        <label for="contacto-correo">Correo electrónico</label>
-        <input id="contacto-correo" name="correo" type="email" required maxlength="120" autocomplete="email">
+        <div class="campo">
+          <label for="contacto-correo">Correo electrónico</label>
+          <input id="contacto-correo" name="correo" type="email" required maxlength="120" autocomplete="email">
+        </div>
 
-        <label for="contacto-telefono">Teléfono (opcional)</label>
-        <input id="contacto-telefono" name="telefono" type="tel" maxlength="20" autocomplete="tel">
+        <div class="campo">
+          <label for="contacto-telefono">Teléfono (opcional)</label>
+          <input id="contacto-telefono" name="telefono" type="tel" maxlength="20" autocomplete="tel">
+        </div>
 
-        <label for="contacto-asunto">Asunto</label>
-        <select id="contacto-asunto" name="asunto" required>
-          <option value="">Elige una opción</option>
-          <option value="consulta">Consulta</option>
-          <option value="pedido-especial">Pedido especial</option>
-          <option value="regalos">Regalos y eventos</option>
-          <option value="otro">Otro</option>
-        </select>
+        <div class="campo">
+          <label for="contacto-asunto">Asunto</label>
+          <select id="contacto-asunto" name="asunto" required>
+            <option value="">Elige una opción</option>
+            <option value="consulta">Consulta</option>
+            <option value="pedido-especial">Pedido especial</option>
+            <option value="regalos">Regalos y eventos</option>
+            <option value="otro">Otro</option>
+          </select>
+        </div>
 
-        <label for="contacto-mensaje">Mensaje</label>
-        <textarea id="contacto-mensaje" name="mensaje" rows="5" required maxlength="1000"></textarea>
+        <div class="campo campo--completo">
+          <label for="contacto-mensaje">Mensaje</label>
+          <textarea id="contacto-mensaje" name="mensaje" rows="5" required maxlength="1000"></textarea>
+        </div>
 
         <button type="submit" class="boton">Enviar mensaje</button>
 
-        <!-- Aquí contacto.js escribe si se envió bien o si hubo un error -->
+        <!-- Aquí contacto.js escribe los errores o el "Enviando..." -->
         <p id="estado-contacto" class="formulario__estado" role="status" aria-live="polite"></p>
       </form>
-    </section>
+
+      <!-- Confirmación: reemplaza al formulario cuando el mensaje se envía bien -->
+      <div id="exito-contacto" class="contacto__exito" role="status" hidden>
+        <span class="contacto__exito-planta" aria-hidden="true">🌱</span>
+        <h3>¡Mensaje enviado!</h3>
+        <p>Gracias por escribirnos. Te respondemos pronto 🌵</p>
+        <button type="button" id="enviar-otro" class="contacto__otro">Enviar otro mensaje</button>
+      </div>
+
+    </div>
+  </div>
+</section>
 
   </main>
 
