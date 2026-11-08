@@ -32,8 +32,7 @@
   }
   @font-face {
     font-family: "Bimbo";
-    src: url("fonts/Bimbo.woff2") format("woff2"),
-         url("fonts/Bimbo.ttf") format("truetype");
+    src: url("fonts/Bimbo.ttf") format("truetype");
     font-display: swap;
   }
   
@@ -537,9 +536,10 @@
   }
   .tarjeta__descripcion { margin: 0 0 .8rem; flex-grow: 1; }
   .tarjeta__precio {
-    font-family: var(--fuente-script);
-    font-size: 1.8rem;
-    color: var(--gris);
+    font-family: var(--fuente-texto);   /* antes: var(--fuente-script) */
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: var(--verde-oscuro);
     margin: 0 0 .6rem;
   }
   .tarjeta .boton { text-align: center; }
@@ -559,7 +559,7 @@
     box-shadow: 0 6px 16px rgba(70, 135, 111, .15);
     transition: transform .2s;
   }
-  .tarjeta--mini:hover { transform: translateY(-4px); }
+  .tarjeta--mini .tarjeta__precio { font-size: 1.3rem; margin-bottom: .3rem; }
   .tarjeta--mini .tarjeta__imagen { aspect-ratio: 4 / 3; }
   .tarjeta--mini .tarjeta__nombre { font-size: 1.15rem; margin-bottom: .2rem; }
   .tarjeta--mini .tarjeta__precio { font-size: 1.5rem; margin-bottom: .3rem; }
