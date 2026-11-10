@@ -974,17 +974,6 @@
   }
   
   /* Dibujo */
-  .planta__tallo {
-    fill: none;
-    stroke: #2F9463;        /* verde más vivo para el tallo */
-    stroke-width: 5;
-    stroke-linecap: round;
-    stroke-dasharray: 1;
-    stroke-dashoffset: 1;   /* 1 = escondido, 0 = dibujado completo */
-  }
-  .planta__hoja    { fill: url(#grad-hoja); }   /* degradado definido en el HTML */
-  .planta__petalo  { fill: #BDEBD0; stroke: #2F9463; stroke-width: 2; }
-  .planta__centro  { fill: var(--blanco); stroke: var(--verde-oscuro); stroke-width: 2; }
   .planta__maceta  { fill: var(--gris); }
   
   /* Cactus */

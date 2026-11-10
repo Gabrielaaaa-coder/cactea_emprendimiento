@@ -9,7 +9,6 @@ const cors = require('cors');
 const mongoose = require('mongoose');
 
 // Modelos
-const Producto = require('./models/Producto');
 const Mensaje = require('./models/Mensaje');
 
 // Panel de administrador
