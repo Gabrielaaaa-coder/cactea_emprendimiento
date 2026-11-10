@@ -9,6 +9,7 @@ npm install     # instalar dependencias
 npm run dev     # servidor de desarrollo con recarga automática
 npm run build   # genera dist/ para producción
 npm run lint    # revisa el código
+npm test        # ejecuta las pruebas de src/utils
 ```
 
 ## Estructura

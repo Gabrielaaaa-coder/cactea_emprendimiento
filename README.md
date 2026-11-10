@@ -16,7 +16,7 @@ rp_suculentas/
 │   ├── middleware/      → guardia de sesión (JWT)
 │   ├── models/          → Producto y Mensaje
 │   ├── routes/          → auth (login) y admin (panel)
-│   ├── app.js           → servidor Express
+│   ├── server.js        → servidor Express
 │   ├── .env             → credenciales reales (NO se sube a git)
 │   └── package.json
 │
@@ -133,9 +133,23 @@ Vite envía automáticamente las llamadas `/api` al backend en `http://localhost
 | GET | `/api/admin/mensajes` | Mensajes (requiere token) |
 | PATCH | `/api/admin/mensajes/:id` | Marcar leído / no leído |
 | DELETE | `/api/admin/mensajes/:id` | Borrar mensaje |
+| GET | `/api/admin/productos` | Productos para el panel (requiere token) |
 | POST | `/api/admin/productos` | Crear producto |
 | PUT | `/api/admin/productos/:id` | Editar producto |
 | DELETE | `/api/admin/productos/:id` | Borrar producto |
+
+## Pruebas
+
+Cada parte tiene sus pruebas automáticas:
+
+```bash
+cd backend
+npm test          # valida los modelos con node:test
+
+cd ../frontend
+npm test          # valida las funciones de utils con node:test
+npm run lint      # revisa el código
+```
 
 ## Panel de administración
 
