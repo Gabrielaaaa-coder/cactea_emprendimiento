@@ -1,7 +1,6 @@
-//-------------------------------------
-// Formularioo :3
-// esto es para conectar con mongoosee ejje
-//----------
+// =========================
+// Modelo de mensaje del formulario
+// =========================
 const mongoose = require('mongoose');
 
 // Cómo es un mensaje que llega desde el formulario de contacto
