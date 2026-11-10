@@ -2,6 +2,7 @@ const categorias = [
   { valor: 'todos', texto: 'Todos' },
   { valor: 'suculentas', texto: 'Suculentas' },
   { valor: 'cactus', texto: 'Cactus' },
+  { valor: 'regalos', texto: 'Regalos' },
 ]
 
 function Filtros({ categoria, onCambiar }) {

@@ -9,6 +9,9 @@ const datosIniciales = {
   mensaje: '',
 }
 
+// Comprueba que el correo tenga forma de "nombre@dominio.com".
+const correoValido = (correo) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(correo)
+
 // Maneja el formulario de contacto: campos, validación, envío y confirmación.
 export function useContacto() {
   const [datos, setDatos] = useState(datosIniciales)
@@ -41,6 +44,12 @@ export function useContacto() {
     if (!limpios.nombre || !limpios.correo || !limpios.asunto || !limpios.mensaje) {
       setError(true)
       setEstado('Por favor completa los campos obligatorios.')
+      return
+    }
+
+    if (!correoValido(limpios.correo)) {
+      setError(true)
+      setEstado('Escribe un correo válido (ejemplo: nombre@dominio.com).')
       return
     }
 

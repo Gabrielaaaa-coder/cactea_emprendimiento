@@ -1,5 +1,4 @@
 import { useCallback, useEffect, useState } from 'react'
-import { obtenerProductos } from '../services/productos.js'
 import { pedirAdmin } from '../services/admin.js'
 
 // Carga los productos y ofrece las acciones del panel.
@@ -10,8 +9,8 @@ export function useProductosAdmin() {
 
   const cargar = useCallback(async () => {
     try {
-      const datos = await obtenerProductos()
-      setProductos(Array.isArray(datos) ? datos : datos.productos || [])
+      const datos = await pedirAdmin('/admin/productos')
+      setProductos(Array.isArray(datos) ? datos : [])
       setError('')
     } catch {
       setError('No se pudieron cargar los productos.')
@@ -21,6 +20,9 @@ export function useProductosAdmin() {
   }, [])
 
   useEffect(() => {
+    // Cargar al montar es una sincronización con el servidor: el setState
+    // ocurre después del await, no de forma síncrona.
+    // oxlint-disable-next-line react/set-state-in-effect
     cargar()
   }, [cargar])
 

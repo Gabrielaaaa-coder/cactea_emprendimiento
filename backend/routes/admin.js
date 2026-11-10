@@ -65,6 +65,17 @@ router.delete('/mensajes/:id', idValido, async (req, res) => {
 
 // ---------- PRODUCTOS ----------
 
+// Ver todos los productos (mismo orden que el catálogo público)
+router.get('/productos', async (req, res) => {
+  try {
+    const productos = await Producto.find().sort({ _id: 1 });
+    res.json(productos);
+  } catch (err) {
+    console.error('ERROR GET /api/admin/productos:', err.message);
+    res.status(500).json({ error: 'No se pudieron cargar los productos.' });
+  }
+});
+
 // Crear producto
 router.post('/productos', async (req, res) => {
   try {

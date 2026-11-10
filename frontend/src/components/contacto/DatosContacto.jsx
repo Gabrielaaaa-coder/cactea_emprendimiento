@@ -1,8 +1,10 @@
+import { WHATSAPP } from '../../constants.js'
+
 function DatosContacto() {
   return (
     <ul className="contacto__datos">
       <li>
-        <a href="https://wa.me/593993122218" target="_blank" rel="noopener">
+        <a href={`https://wa.me/${WHATSAPP}`} target="_blank" rel="noopener">
           <span className="contacto__icono" aria-hidden="true">
             💬
           </span>

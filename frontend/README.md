@@ -9,6 +9,7 @@ npm install     # instalar dependencias
 npm run dev     # servidor de desarrollo con recarga automática
 npm run build   # genera dist/ para producción
 npm run lint    # revisa el código
+npm test        # ejecuta las pruebas de src/utils
 ```
 
 ## Estructura
@@ -20,7 +21,8 @@ src/
 ├── admin/        → panel de administración (rutas protegidas)
 ├── hooks/        → lógica reutilizable
 ├── services/     → llamadas a la API
-└── styles.css    → estilos del sitio público
+├── styles/       → global.css (sitio público) y admin.css (panel)
+└── utils/        → funciones auxiliares (precios, imágenes)
 ```
 
 - Las imágenes y fuentes están en `public/img` y `public/fonts`.
