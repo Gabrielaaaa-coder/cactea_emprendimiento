@@ -1,0 +1,12 @@
+# Dependencias (cada parte del proyecto tiene las suyas)
+node_modules/
+
+# Archivos de entorno (nunca subir credenciales)
+.env
+.env.*
+
+# Logs
+*.log
+
+# Repositorio antiguo conservado dentro de public/ (no forma parte de este proyecto)
+/public/

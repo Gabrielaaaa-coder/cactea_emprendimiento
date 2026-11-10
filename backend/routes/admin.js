@@ -7,7 +7,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const requiereAdmin = require('../middleware/auth');
 const Producto = require('../models/Producto.js');
-const Mensaje = require('../models/mensaje.js');
+const Mensaje = require('../models/Mensaje.js');
 
 const router = express.Router();
 

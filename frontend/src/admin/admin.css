@@ -1,0 +1,102 @@
+/* Estilos del panel, encerrados en .panel-admin para no afectar el sitio público. */
+.panel-admin {
+  --verde: #46876F;
+  --verde-2: #678F73;
+  --gris: #737373;
+  --crema: #E0E5CF;
+  --claro: #C1D1B5;
+  min-height: 100vh;
+  background: var(--crema);
+  color: var(--gris);
+  font-family: system-ui, sans-serif;
+}
+
+.panel-admin *,
+.panel-admin *::before,
+.panel-admin *::after { box-sizing: border-box; }
+
+.panel-admin h1,
+.panel-admin h2,
+.panel-admin h3 {
+  font-family: system-ui, sans-serif;
+  color: var(--verde);
+  margin: 0 0 .4rem;
+}
+.panel-admin a { color: var(--verde); }
+.panel-admin [hidden] { display: none !important; }
+
+.panel-admin .login { min-height: 100vh; display: grid; place-items: center; padding: 1rem; }
+
+.panel-admin .tarjeta {
+  background: #fff;
+  border: 0;
+  border-radius: 14px;
+  padding: 1.2rem;
+  box-shadow: 0 2px 8px #0001;
+  display: grid;
+  gap: .7rem;
+}
+.panel-admin .login .tarjeta { width: min(360px, 100%); text-align: center; }
+
+.panel-admin input,
+.panel-admin select,
+.panel-admin textarea {
+  padding: .6rem;
+  border: 1px solid var(--claro);
+  border-radius: 8px;
+  font: inherit;
+  width: 100%;
+}
+.panel-admin .check { display: flex; align-items: center; gap: .5rem; }
+.panel-admin .check input { width: auto; }
+
+.panel-admin .btn,
+.panel-admin .btn-sec,
+.panel-admin .btn-peligro,
+.panel-admin .tab {
+  border: 0;
+  border-radius: 999px;
+  padding: .55rem 1.1rem;
+  font: inherit;
+  cursor: pointer;
+}
+.panel-admin .btn { background: var(--verde); color: #fff; }
+.panel-admin .btn:disabled { opacity: .65; cursor: progress; }
+.panel-admin .btn-sec { background: var(--claro); color: var(--verde); }
+.panel-admin .btn-peligro { background: #fff; color: #b3402f; border: 1px solid #b3402f; }
+.panel-admin .error { color: #b3402f; margin: 0; min-height: 1.2em; }
+
+.panel-admin .barra {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: .6rem;
+  padding: .8rem 1rem;
+  background: #fff;
+}
+.panel-admin .barra h1 { font-size: 1.2rem; margin: 0; }
+.panel-admin .tab { background: transparent; color: var(--gris); }
+.panel-admin .tab.activa { background: var(--verde); color: #fff; }
+
+.panel-admin main {
+  max-width: 820px;
+  margin: 1rem auto;
+  padding: 0 1rem;
+  display: grid;
+  gap: 1rem;
+}
+.panel-admin .lista-admin { display: grid; gap: 1rem; }
+.panel-admin .fila { display: flex; flex-wrap: wrap; gap: .5rem; }
+.panel-admin .mensaje.nuevo { border-left: 6px solid var(--verde); }
+.panel-admin .vacio { text-align: center; }
+.panel-admin .aviso {
+  position: fixed;
+  bottom: 1rem;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--verde);
+  color: #fff;
+  padding: .6rem 1.2rem;
+  border-radius: 999px;
+}

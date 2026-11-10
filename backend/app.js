@@ -10,7 +10,7 @@ const mongoose = require('mongoose');
 
 // Modelos
 const Producto = require('./models/Producto');
-const Mensaje = require('./models/mensaje');
+const Mensaje = require('./models/Mensaje');
 
 // Panel de administrador
 const authRoutes = require('./routes/auth');
@@ -25,7 +25,6 @@ app.use(cors());
 app.use(express.json());
 app.use('/api', authRoutes);            // POST /api/login
 app.use('/api/admin', adminRoutes);     // rutas protegidas del panel
-app.use(express.static(path.join(__dirname, '..', 'public')));
 
 mongoose.set('bufferCommands', false);
 mongoose.set('strictQuery', false);
@@ -106,6 +105,26 @@ app.post('/api/mensajes', async (req, res) => {
     const codigo = err.name === 'ValidationError' ? 400 : 500;
     res.status(codigo).json({ error: 'No se pudo guardar el mensaje.' });
   }
+});
+
+// ---------- FRONTEND (REACT) ----------
+// En producción se sirve la carpeta que genera "npm run build" dentro de frontend.
+const carpetaFrontend = path.join(__dirname, '..', 'frontend', 'dist');
+
+// Cualquier /api/... que no exista responde JSON, no HTML.
+app.use('/api', (req, res) => {
+  res.status(404).json({ error: 'Ruta no encontrada.' });
+});
+
+// Archivos estáticos: index.html, assets, img y fonts.
+app.use(express.static(carpetaFrontend));
+
+// Las rutas de React Router (/admin/mensajes, etc.) también devuelven index.html.
+app.get('*', (req, res, next) => {
+  // Si la dirección parece un archivo (tiene extensión), dejamos que siga
+  // y responda el 404 normal, en vez de devolver HTML.
+  if (path.extname(req.path)) return next();
+  res.sendFile(path.join(carpetaFrontend, 'index.html'));
 });
 
 // ---------- ARRANQUE ----------
