@@ -20,6 +20,9 @@ export function useMensajesAdmin() {
   }, [])
 
   useEffect(() => {
+    // Cargar al montar es una sincronización con el servidor: el setState
+    // ocurre después del await, no de forma síncrona.
+    // oxlint-disable-next-line react/set-state-in-effect
     cargar()
   }, [cargar])
 
