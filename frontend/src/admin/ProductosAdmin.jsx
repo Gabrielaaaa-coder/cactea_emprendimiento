@@ -92,6 +92,7 @@ function ProductosAdmin() {
         <select name="categoria" value={formulario.categoria} onChange={cambiar}>
           <option value="suculentas">Suculentas</option>
           <option value="cactus">Cactus</option>
+          <option value="regalos">Regalos</option>
         </select>
 
         <input
