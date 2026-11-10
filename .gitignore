@@ -4,9 +4,7 @@ node_modules/
 # Archivos de entorno (nunca subir credenciales)
 .env
 .env.*
+!.env.example
 
 # Logs
 *.log
-
-# Repositorio antiguo conservado dentro de public/ (no forma parte de este proyecto)
-/public/

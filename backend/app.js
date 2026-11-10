@@ -8,6 +8,9 @@ const express = require('express');
 const cors = require('cors');
 const mongoose = require('mongoose');
 
+// Conexión con la base de datos
+const conectarDB = require('./config/db');
+
 // Modelos
 const Mensaje = require('./models/Mensaje');
 
@@ -24,9 +27,6 @@ app.use(cors());
 app.use(express.json());
 app.use('/api', authRoutes);            // POST /api/login
 app.use('/api/admin', adminRoutes);     // rutas protegidas del panel
-
-mongoose.set('bufferCommands', false);
-mongoose.set('strictQuery', false);
 
 // ---------- PRODUCTOS (públicas) ----------
 
@@ -130,10 +130,7 @@ app.get('*', (req, res, next) => {
 async function start() {
   console.log('Conectando a MongoDB...');
   try {
-    await mongoose.connect(process.env.MONGODB_URI, {
-      serverSelectionTimeoutMS: 10000,
-      socketTimeoutMS: 45000,
-    });
+    await conectarDB();
     console.log('Conectado a MongoDB Atlas');
     app.listen(PUERTO, () => {
       console.log(`API de Cactea lista en http://localhost:${PUERTO}`);

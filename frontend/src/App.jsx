@@ -9,7 +9,7 @@ import { SesionProvider } from './admin/SesionContext.jsx'
 import InicioPage from './pages/InicioPage.jsx'
 
 function App() {
-  // La clase "js" activa las animaciones de aparición definidas en styles.css.
+  // La clase "js" activa las animaciones de aparición definidas en global.css.
   useEffect(() => {
     document.documentElement.classList.add('js')
   }, [])
