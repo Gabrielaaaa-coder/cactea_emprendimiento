@@ -2,10 +2,11 @@
   "name": "cactea-api-express",
   "version": "1.0.0",
   "description": "API de Cactea con Express",
-  "main": "app.js",
+  "main": "server.js",
   "scripts": {
-    "start": "node app.js",
-    "dev": "node --watch app.js"
+    "start": "node server.js",
+    "dev": "node --watch server.js",
+    "test": "node --test"
   },
   "dependencies": {
     "bcryptjs": "^3.0.3",

@@ -1,5 +1,5 @@
 // =========================================================
-// CACTEA · app.js  (API CON EXPRESS + MONGODB)
+// CACTEA · server.js  (API CON EXPRESS + MONGODB)
 // =========================================================
 const path = require('path');
 require('dotenv').config({ path: path.join(__dirname, '.env') });
@@ -17,7 +17,6 @@ const Mensaje = require('./models/Mensaje');
 // Panel de administrador
 const authRoutes = require('./routes/auth');
 const adminRoutes = require('./routes/admin');
-const requiereAdmin = require('./middleware/auth');
 
 const app = express();
 const PUERTO = process.env.PORT || 3000;
@@ -57,32 +56,6 @@ app.get('/api/productos/:id', async (req, res) => {
   } catch (err) {
     console.error('ERROR GET /api/productos/:id:', err.message);
     res.status(404).json({ error: 'Producto no encontrado' });
-  }
-});
-
-// POST /api/productos  -> agrega un producto nuevo (solo admin)
-app.post('/api/productos', requiereAdmin, async (req, res) => {
-  try {
-    const { nombre, categoria, descripcion, precio, imagen, destacado } = req.body;
-    if (!nombre || typeof precio !== 'number') {
-      return res.status(400).json({ error: 'Faltan datos: nombre y precio (número)' });
-    }
-    const coll = mongoose.connection.collection('productos');
-    const nuevo = {
-      nombre,
-      categoria: categoria || 'suculentas',
-      descripcion: descripcion || '',
-      precio,
-      imagen: imagen || 'img/producto-1.jpg',
-      destacado: destacado || false,
-      __v: 0,
-    };
-    const result = await coll.insertOne(nuevo);
-    nuevo._id = result.insertedId;
-    res.status(201).json(nuevo);
-  } catch (err) {
-    console.error('ERROR POST /api/productos:', err);
-    res.status(400).json({ error: 'Error al crear producto', detalle: err.message });
   }
 });
 
