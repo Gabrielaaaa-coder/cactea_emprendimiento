@@ -29,7 +29,15 @@ const PUERTO = process.env.PORT || 3000;
 app.set('trust proxy', 1);
 
 // ---------- MIDDLEWARES ----------
-app.use(cors());
+// En producción el frontend se sirve desde este mismo servicio, así que las
+// peticiones a /api son del mismo origen. CORS_ORIGIN permite restringirlo
+// cuando el frontend se publica en otro dominio (separar orígenes con comas).
+const origenesPermitidos = (process.env.CORS_ORIGIN || '')
+  .split(',')
+  .map((origen) => origen.trim())
+  .filter(Boolean);
+
+app.use(cors(origenesPermitidos.length ? { origin: origenesPermitidos } : { origin: true }));
 app.use(express.json());
 app.use('/api', authRoutes);              // POST /api/login
 app.use('/api/admin', adminRoutes);       // rutas protegidas del panel
