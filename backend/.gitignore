@@ -1,3 +1,11 @@
+# Dependencias
+node_modules/
+
+# Variables de entorno
+.env
+.env.*
+!.env.example
+
 # Logs
 logs
 *.log
@@ -7,12 +15,7 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 
-node_modules
-dist
-dist-ssr
-*.local
-
-# Editor directories and files
+# Editor
 .vscode/*
 !.vscode/extensions.json
 .idea
@@ -22,19 +25,3 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
-# Variables secretas
-.env
-.env.*
-!.env.example
-# Dependencias (cada parte del proyecto tiene las suyas)
-node_modules/
-
-# Archivos de entorno (nunca subir credenciales)
-.env
-.env.*
-
-# Logs
-*.log
-
-# Repositorio antiguo conservado dentro de public/ (no forma parte de este proyecto)
-/public/
