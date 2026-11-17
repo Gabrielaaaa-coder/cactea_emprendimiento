@@ -1,0 +1,398 @@
+/* =========================================================
+   CACTEA · asistente.css
+   Estilos del chat flotante. Todas las clases empiezan con
+   "asistente" para que puedas mover el componente a React
+   sin que choque con el resto de la página.
+   ========================================================= */
+
+.asistente {
+  position: fixed;
+  right: 1rem;
+  bottom: 1rem;
+  z-index: 60;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: .75rem;
+  font-family: var(--fuente-texto, "Segoe UI", system-ui, sans-serif);
+}
+
+/* ---------- Botón flotante ---------- */
+.asistente__boton {
+  display: grid;
+  place-items: center;
+  width: 60px;
+  height: 60px;
+  border: 0;
+  border-radius: 50%;
+  background: var(--verde-oscuro, #46876F);
+  color: #fff;
+  cursor: pointer;
+  box-shadow: 0 12px 28px rgba(70, 135, 111, .38);
+  transition: transform .2s, background .2s;
+}
+
+.asistente__boton:hover {
+  background: var(--verde-medio, #678F73);
+  transform: translateY(-2px);
+}
+
+.asistente__boton:active {
+  transform: scale(.96);
+}
+
+.asistente__boton svg {
+  width: 27px;
+  height: 27px;
+}
+
+/* ---------- Ventana ---------- */
+.asistente__panel {
+  display: flex;
+  flex-direction: column;
+  width: min(380px, calc(100vw - 2rem));
+  height: min(560px, calc(100vh - 7rem));
+  height: min(560px, calc(100dvh - 7rem));
+  overflow: hidden;
+  border: 1px solid var(--verde-claro, #C1D1B5);
+  border-radius: var(--radio-grande, 24px);
+  background: #fff;
+  box-shadow: 0 24px 60px rgba(62, 62, 62, .22);
+  animation: asistente-aparecer .22s ease-out;
+}
+
+/* ---------- Cabecera ---------- */
+.asistente__cabecera {
+  display: flex;
+  align-items: center;
+  gap: .75rem;
+  padding: .85rem 1rem;
+  background: linear-gradient(135deg, var(--verde-oscuro, #46876F), var(--verde-medio, #678F73));
+  color: #fff;
+}
+
+.asistente__avatar {
+  display: grid;
+  place-items: center;
+  flex: 0 0 auto;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: var(--crema, #E0E5CF);
+  font-size: 1.35rem;
+  line-height: 1;
+}
+
+.asistente__identidad {
+  flex: 1;
+  min-width: 0;
+}
+
+.asistente__titulo {
+  margin: 0;
+  color: #fff;
+  font-family: var(--fuente-titulo, "Trebuchet MS", sans-serif);
+  font-size: 1.25rem;
+  line-height: 1.1;
+}
+
+.asistente__estado {
+  margin: .1rem 0 0;
+  color: var(--crema, #E0E5CF);
+  font-family: var(--fuente-script, "Segoe Script", cursive);
+  font-size: .9rem;
+  line-height: 1.2;
+}
+
+.asistente__cerrar {
+  display: grid;
+  place-items: center;
+  flex: 0 0 auto;
+  width: 34px;
+  height: 34px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, .14);
+  color: #fff;
+  cursor: pointer;
+  transition: background .2s;
+}
+
+.asistente__cerrar:hover {
+  background: rgba(255, 255, 255, .28);
+}
+
+.asistente__cerrar svg {
+  width: 18px;
+  height: 18px;
+}
+
+/* ---------- Conversación ---------- */
+.asistente__mensajes {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: .65rem;
+  overflow-y: auto;
+  padding: 1rem;
+  background: #FBFBF6;
+  scroll-behavior: smooth;
+}
+
+.asistente__fila {
+  display: flex;
+}
+
+.asistente__fila--bot {
+  justify-content: flex-start;
+}
+
+.asistente__fila--usuario {
+  justify-content: flex-end;
+}
+
+.asistente__burbuja {
+  max-width: 86%;
+  padding: .65rem .85rem;
+  border-radius: 16px;
+  font-size: .95rem;
+  line-height: 1.5;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+.asistente__fila--bot .asistente__burbuja {
+  border: 1px solid var(--verde-claro, #C1D1B5);
+  border-bottom-left-radius: 6px;
+  background: #fff;
+  color: var(--texto, #3E3E3E);
+}
+
+.asistente__fila--usuario .asistente__burbuja {
+  border-bottom-right-radius: 6px;
+  background: var(--verde-oscuro, #46876F);
+  color: #fff;
+}
+
+.asistente__burbuja--error {
+  border-color: #E3B4B4 !important;
+  background: #FFF5F5 !important;
+  color: #7A3B3B !important;
+}
+
+.asistente__enlace {
+  display: block;
+  margin-top: .35rem;
+  color: inherit;
+  font-weight: 800;
+  text-decoration: underline;
+}
+
+/* Puntitos de "escribiendo..." */
+.asistente__burbuja--escribiendo {
+  display: flex;
+  align-items: center;
+  gap: .3rem;
+  min-height: 1.5rem;
+}
+
+.asistente__punto {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--verde-medio, #678F73);
+  animation: asistente-latido 1s infinite ease-in-out;
+}
+
+.asistente__punto:nth-child(2) {
+  animation-delay: .15s;
+}
+
+.asistente__punto:nth-child(3) {
+  animation-delay: .3s;
+}
+
+/* ---------- Preguntas sugeridas ---------- */
+.asistente__sugerencias {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .4rem;
+  padding: 0 1rem .8rem;
+  background: #FBFBF6;
+}
+
+.asistente__sugerencia {
+  padding: .35rem .7rem;
+  border: 1px solid var(--verde-claro, #C1D1B5);
+  border-radius: 999px;
+  background: #fff;
+  color: var(--verde-oscuro, #46876F);
+  font: inherit;
+  font-size: .78rem;
+  font-weight: 700;
+  line-height: 1.3;
+  text-align: left;
+  cursor: pointer;
+  transition: background .2s;
+}
+
+.asistente__sugerencia:hover {
+  background: var(--crema, #E0E5CF);
+}
+
+/* ---------- Escribir y enviar ---------- */
+.asistente__form {
+  display: flex;
+  align-items: flex-end;
+  gap: .5rem;
+  padding: .75rem 1rem .25rem;
+  border-top: 1px solid var(--verde-claro, #C1D1B5);
+  background: #fff;
+}
+
+.asistente__entrada {
+  flex: 1;
+  min-height: 44px;
+  max-height: 110px;
+  padding: .65rem .8rem;
+  overflow-y: auto;
+  border: 1px solid var(--verde-claro, #C1D1B5);
+  border-radius: 16px;
+  background: #fff;
+  color: var(--texto, #3E3E3E);
+  font: inherit;
+  font-size: .95rem;
+  line-height: 1.4;
+  resize: none;
+}
+
+.asistente__entrada:focus {
+  border-color: var(--verde-medio, #678F73);
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(103, 143, 115, .18);
+}
+
+.asistente__enviar {
+  display: grid;
+  place-items: center;
+  flex: 0 0 auto;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: var(--verde-oscuro, #46876F);
+  color: #fff;
+  cursor: pointer;
+  transition: background .2s, opacity .2s;
+}
+
+.asistente__enviar:hover:not(:disabled) {
+  background: var(--verde-medio, #678F73);
+}
+
+.asistente__enviar:disabled {
+  background: var(--verde-palido, #B5C9BD);
+  cursor: not-allowed;
+}
+
+.asistente__enviar svg {
+  width: 20px;
+  height: 20px;
+}
+
+.asistente__nota {
+  margin: 0;
+  padding: 0 1rem .6rem;
+  background: #fff;
+  color: var(--gris, #737373);
+  font-size: .68rem;
+  line-height: 1.4;
+  text-align: center;
+}
+
+/* ---------- Animaciones ---------- */
+@keyframes asistente-aparecer {
+  from {
+    opacity: 0;
+    transform: translateY(12px) scale(.98);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes asistente-latido {
+  0%,
+  80%,
+  100% {
+    opacity: .45;
+    transform: translateY(0);
+  }
+
+  40% {
+    opacity: 1;
+    transform: translateY(-3px);
+  }
+}
+
+/* ---------- Celular: el chat ocupa la pantalla ---------- */
+@media (max-width: 560px) {
+  .asistente {
+    right: .85rem;
+    bottom: calc(.85rem + env(safe-area-inset-bottom));
+    left: .85rem;
+  }
+
+  /* Abierto: ocupa toda la pantalla, sin márgenes. */
+  .asistente--abierto {
+    right: 0;
+    bottom: 0;
+    left: 0;
+  }
+
+  .asistente__panel {
+    width: 100vw;
+    height: 100vh;
+    height: 100dvh;
+    border: 0;
+    border-radius: 0;
+  }
+
+  .asistente--abierto .asistente__boton {
+    display: none;
+  }
+
+  .asistente__form {
+    padding-bottom: calc(.35rem + env(safe-area-inset-bottom));
+  }
+
+  body.asistente-con-panel {
+    overflow: hidden;
+  }
+}
+
+/* ---------- Menos movimiento ---------- */
+@media (prefers-reduced-motion: reduce) {
+  .asistente__panel {
+    animation: none;
+  }
+
+  .asistente__boton,
+  .asistente__sugerencia,
+  .asistente__enviar {
+    transition: none;
+  }
+
+  .asistente__punto {
+    animation: none;
+    opacity: .7;
+  }
+
+  .asistente__mensajes {
+    scroll-behavior: auto;
+  }
+}

@@ -1,5 +1,6 @@
 import Encabezado from '../components/layout/Encabezado.jsx'
 import Pie from '../components/layout/Pie.jsx'
+import AsistenteChat from '../components/asistente/AsistenteChat.jsx'
 import PlantaScroll from '../components/PlantaScroll.jsx'
 import Cuidados from '../components/sections/Cuidados.jsx'
 import Contacto from '../components/sections/Contacto.jsx'
@@ -50,6 +51,7 @@ function InicioPage() {
 
       <Pie />
       <PlantaScroll />
+      <AsistenteChat />
     </>
   )
 }

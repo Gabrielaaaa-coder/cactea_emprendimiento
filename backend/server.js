@@ -18,14 +18,22 @@ const Mensaje = require('./models/Mensaje');
 const authRoutes = require('./routes/auth');
 const adminRoutes = require('./routes/admin');
 
+// Asistente con IA
+const asistenteRoutes = require('./routes/asistente');
+
 const app = express();
 const PUERTO = process.env.PORT || 3000;
+
+// Necesario para que el rate limit identifique la IP real del cliente
+// cuando la app corre detrás de un proxy (Render, Railway, Nginx, etc.).
+app.set('trust proxy', 1);
 
 // ---------- MIDDLEWARES ----------
 app.use(cors());
 app.use(express.json());
-app.use('/api', authRoutes);            // POST /api/login
-app.use('/api/admin', adminRoutes);     // rutas protegidas del panel
+app.use('/api', authRoutes);              // POST /api/login
+app.use('/api/admin', adminRoutes);       // rutas protegidas del panel
+app.use('/api/asistente', asistenteRoutes); // POST /api/asistente
 
 // ---------- PRODUCTOS (públicas) ----------
 
