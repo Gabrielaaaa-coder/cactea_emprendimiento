@@ -3,16 +3,21 @@ import { usePlantaScroll } from '../hooks/usePlantaScroll.js'
 
 function PlantaScroll({ abierto = false, onAlternar, botonRef }) {
   const contenedorRef = useRef(null)
-  usePlantaScroll(contenedorRef)
+  const { globoVisible, fraseActual } = usePlantaScroll(contenedorRef)
 
   return (
     <div className="planta-fija" ref={contenedorRef}>
+      {globoVisible && (
+        <div className="planta-globo" role="status" aria-live="polite">
+          <span className="planta-globo__texto">{fraseActual}</span>
+          <span className="planta-globo__flecha" aria-hidden="true" />
+        </div>
+      )}
+
       <button
         ref={botonRef}
         type="button"
-        className={`planta-fija__boton${
-          abierto ? ' planta-fija__boton--activo' : ''
-        }`}
+        className={`planta-fija__boton${abierto ? ' planta-fija__boton--activo' : ''}`}
         onClick={onAlternar}
         aria-label={abierto ? 'Cerrar asistente' : 'Abrir asistente de Cactea'}
         aria-expanded={abierto}

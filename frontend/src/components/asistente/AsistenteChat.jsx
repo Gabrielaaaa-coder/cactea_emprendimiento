@@ -40,6 +40,13 @@ function AsistenteChat({ abierto, onCerrar }) {
   useEffect(() => {
     if (!abierto) return undefined
 
+    try {
+      sessionStorage.setItem('cactea_chat_abierto_en_sesion', '1')
+    } catch {
+      // sessionStorage puede no estar disponible.
+    }
+    window.dispatchEvent(new CustomEvent('cactea:chat-abierto'))
+
     document.body.classList.add('asistente-con-panel')
     const temporizador = setTimeout(() => entradaRef.current?.focus(), 120)
 

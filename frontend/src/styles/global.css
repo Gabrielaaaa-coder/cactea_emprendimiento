@@ -1407,6 +1407,58 @@ main>.portada>* {
   filter: drop-shadow(0 0 9px rgba(103, 143, 115, .55));
 }
 
+/* Globo de sugerencias del asistente */
+.planta-globo {
+  position: relative;
+  max-width: min(260px, calc(100vw - 5.5rem));
+  padding: .6rem .8rem;
+  border: 2px solid #678F73;
+  border-radius: 14px;
+  background: #E0E5CF;
+  color: #46876F;
+  font-size: .82rem;
+  font-weight: 700;
+  line-height: 1.35;
+  text-align: left;
+  box-shadow: 0 6px 18px rgba(70, 135, 111, .2);
+  pointer-events: none;
+  animation: planta-globo-entrada .3s ease-out;
+}
+
+.planta-globo__texto {
+  display: block;
+}
+
+.planta-globo__flecha {
+  position: absolute;
+  right: 1.2rem;
+  bottom: -8px;
+  width: 14px;
+  height: 14px;
+  border-right: 2px solid #678F73;
+  border-bottom: 2px solid #678F73;
+  background: #E0E5CF;
+  transform: rotate(45deg);
+}
+
+@keyframes planta-globo-entrada {
+  from {
+    opacity: 0;
+    transform: translateY(6px) scale(.98);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .planta-globo {
+    animation: none;
+  }
+}
+
 /* Dibujo */
 .planta__maceta {
   fill: var(--gris);

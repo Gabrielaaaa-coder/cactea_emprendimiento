@@ -1,10 +1,22 @@
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 
 const limitar = (numero) => Math.min(1, Math.max(0, numero))
 
+const FRASES_GLOBO = [
+  '¡Avísame si te puedo ayudar! 🌵',
+  '¿No sabes qué planta elegir?',
+  'Pregúntame por cuidados 💧',
+]
+
+const CLAVE_SESION = 'cactea_chat_abierto_en_sesion'
+
 // Hace que la plantita crezca con el scroll, se meza, salte y celebre.
+// También controla el globo de sugerencias para abrir el asistente.
 export function usePlantaScroll(contenedorRef) {
   const temporizadores = useRef(new Set())
+  const indiceFrase = useRef(0)
+  const [globoVisible, setGloboVisible] = useState(false)
+  const [fraseActual, setFraseActual] = useState(FRASES_GLOBO[0])
 
   useEffect(() => {
     const contenedor = contenedorRef.current
@@ -16,11 +28,13 @@ export function usePlantaScroll(contenedorRef) {
     let celebrado = false
     let esperando = false
     let temporizadorScroll
+    let cicloGloboIniciado = false
 
     // Añade una clase durante un ratito (para saltos y celebraciones).
     function activarUnRato(clase, milisegundos) {
       contenedor.classList.remove(clase)
-      void contenedor.offsetWidth // reinicia la animación si ya estaba puesta
+      // Reinicia la animación si ya estaba puesta.
+      void contenedor.offsetWidth
       contenedor.classList.add(clase)
 
       const id = setTimeout(() => {
@@ -66,8 +80,6 @@ export function usePlantaScroll(contenedorRef) {
       }
     }
 
-    // El salto también se dispara con Enter/Espacio, porque el listener
-    // vive en el botón y no solo en el dibujo.
     const boton = contenedor.querySelector('.planta-fija__boton') || planta
 
     function alHacerClic() {
@@ -75,6 +87,54 @@ export function usePlantaScroll(contenedorRef) {
     }
 
     boton.addEventListener('click', alHacerClic)
+
+    // ---------- Globo del asistente ----------
+    function ocultarGlobo() {
+      setGloboVisible(false)
+    }
+
+    function mostrarSiguienteGlobo() {
+      const frase = FRASES_GLOBO[indiceFrase.current % FRASES_GLOBO.length]
+      indiceFrase.current += 1
+      setFraseActual(frase)
+      setGloboVisible(true)
+
+      const idOcultar = setTimeout(() => {
+        setGloboVisible(false)
+        temporizadoresActivos.delete(idOcultar)
+
+        // Vuelve a salir cada 15 segundos.
+        const idReaparecer = setTimeout(() => {
+          temporizadoresActivos.delete(idReaparecer)
+          if (sessionStorage.getItem(CLAVE_SESION) === '1') return
+          mostrarSiguienteGlobo()
+        }, 15000)
+        temporizadoresActivos.add(idReaparecer)
+      }, 5000)
+      temporizadoresActivos.add(idOcultar)
+    }
+
+    function iniciarCicloGlobo() {
+      if (cicloGloboIniciado) return
+      if (sessionStorage.getItem(CLAVE_SESION) === '1') return
+      cicloGloboIniciado = true
+
+      const idInicial = setTimeout(() => {
+        temporizadoresActivos.delete(idInicial)
+        if (sessionStorage.getItem(CLAVE_SESION) === '1') return
+        mostrarSiguienteGlobo()
+      }, 4000)
+      temporizadoresActivos.add(idInicial)
+    }
+
+    function alAbrirChat() {
+      sessionStorage.setItem(CLAVE_SESION, '1')
+      ocultarGlobo()
+      cicloGloboIniciado = true
+    }
+
+    window.addEventListener('cactea:chat-abierto', alAbrirChat)
+    iniciarCicloGlobo()
 
     let limpiarScroll = () => {}
 
@@ -113,9 +173,12 @@ export function usePlantaScroll(contenedorRef) {
 
     return () => {
       boton.removeEventListener('click', alHacerClic)
+      window.removeEventListener('cactea:chat-abierto', alAbrirChat)
       limpiarScroll()
       temporizadoresActivos.forEach(clearTimeout)
       temporizadoresActivos.clear()
     }
   }, [contenedorRef])
+
+  return { globoVisible, fraseActual }
 }
