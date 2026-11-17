@@ -19,8 +19,7 @@ const enlaceWhatsApp = `https://wa.me/${WHATSAPP}?text=${encodeURIComponent(
   'Hola, tengo una consulta sobre Cactea.'
 )}`
 
-function AsistenteChat() {
-  const [abierto, setAbierto] = useState(false)
+function AsistenteChat({ abierto, onCerrar }) {
   const [texto, setTexto] = useState('')
   const [enviando, setEnviando] = useState(false)
   const [mensajes, setMensajes] = useState([
@@ -55,12 +54,12 @@ function AsistenteChat() {
     if (!abierto) return undefined
 
     const alPresionar = (evento) => {
-      if (evento.key === 'Escape') setAbierto(false)
+      if (evento.key === 'Escape') onCerrar()
     }
 
     document.addEventListener('keydown', alPresionar)
     return () => document.removeEventListener('keydown', alPresionar)
-  }, [abierto])
+  }, [abierto, onCerrar])
 
   // Bajar siempre al último mensaje o al indicador de "escribiendo...".
   useEffect(() => {
@@ -159,7 +158,7 @@ function AsistenteChat() {
             <button
               type="button"
               className="asistente__cerrar"
-              onClick={() => setAbierto(false)}
+              onClick={onCerrar}
               aria-label="Cerrar asistente"
             >
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" aria-hidden="true">
@@ -270,26 +269,6 @@ function AsistenteChat() {
           </p>
         </section>
       )}
-
-      <button
-        type="button"
-        className="asistente__boton"
-        onClick={() => setAbierto((estado) => !estado)}
-        aria-expanded={abierto}
-        aria-controls="asistente-panel"
-        aria-label={abierto ? 'Cerrar asistente de Cactea' : 'Abrir asistente de Cactea'}
-      >
-        {abierto ? (
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" aria-hidden="true">
-            <path d="M6 6l12 12M18 6L6 18" />
-          </svg>
-        ) : (
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-            <path d="M21 11.5a8.4 8.4 0 0 1-8.5 8.5 8.9 8.9 0 0 1-3.6-.8L3 21l1.8-5.6A8.5 8.5 0 1 1 21 11.5Z" />
-            <path d="M8.5 11.5h.01M12 11.5h.01M15.5 11.5h.01" />
-          </svg>
-        )}
-      </button>
     </div>
   )
 }

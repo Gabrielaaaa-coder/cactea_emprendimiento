@@ -66,11 +66,15 @@ export function usePlantaScroll(contenedorRef) {
       }
     }
 
+    // El salto también se dispara con Enter/Espacio, porque el listener
+    // vive en el botón y no solo en el dibujo.
+    const boton = contenedor.querySelector('.planta-fija__boton') || planta
+
     function alHacerClic() {
       activarUnRato('saltando', 600)
     }
 
-    planta.addEventListener('click', alHacerClic)
+    boton.addEventListener('click', alHacerClic)
 
     let limpiarScroll = () => {}
 
@@ -108,7 +112,7 @@ export function usePlantaScroll(contenedorRef) {
     }
 
     return () => {
-      planta.removeEventListener('click', alHacerClic)
+      boton.removeEventListener('click', alHacerClic)
       limpiarScroll()
       temporizadoresActivos.forEach(clearTimeout)
       temporizadoresActivos.clear()

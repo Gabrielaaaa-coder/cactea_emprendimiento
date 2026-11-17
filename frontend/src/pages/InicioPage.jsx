@@ -1,3 +1,4 @@
+import { useCallback, useRef, useState } from 'react'
 import Encabezado from '../components/layout/Encabezado.jsx'
 import Pie from '../components/layout/Pie.jsx'
 import AsistenteChat from '../components/asistente/AsistenteChat.jsx'
@@ -13,6 +14,9 @@ import { usePedido } from '../hooks/usePedido.js'
 import { useProductos } from '../hooks/useProductos.js'
 
 function InicioPage() {
+  const [asistenteAbierto, setAsistenteAbierto] = useState(false)
+  const botonPlantaRef = useRef(null)
+
   const { productos, cargando, error } = useProductos()
   const {
     pedido,
@@ -23,6 +27,18 @@ function InicioPage() {
     unidades,
     ultimoCambiado,
   } = usePedido()
+
+  // La plantita y el chat comparten este estado: ella abre/cierra,
+  // él solo muestra la ventana y avisa cuando hay que cerrarla.
+  const alternarAsistente = useCallback(() => {
+    setAsistenteAbierto((abierto) => !abierto)
+  }, [])
+
+  const cerrarAsistente = useCallback(() => {
+    setAsistenteAbierto(false)
+    // Devolvemos el foco al botón que abrió el chat.
+    botonPlantaRef.current?.focus()
+  }, [])
 
   return (
     <>
@@ -50,8 +66,12 @@ function InicioPage() {
       </main>
 
       <Pie />
-      <PlantaScroll />
-      <AsistenteChat />
+      <PlantaScroll
+        abierto={asistenteAbierto}
+        onAlternar={alternarAsistente}
+        botonRef={botonPlantaRef}
+      />
+      <AsistenteChat abierto={asistenteAbierto} onCerrar={cerrarAsistente} />
     </>
   )
 }

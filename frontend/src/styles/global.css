@@ -64,6 +64,11 @@
   --radio: 18px;
   --radio-grande: 24px;
   --ancho-max: 1100px;
+
+  /* Tamaño de la plantita fija. El alto sale del viewBox 120×200
+     del SVG, para que el chat pueda abrirse justo encima. */
+  --planta-ancho: clamp(64px, 9vw, 110px);
+  --planta-alto: calc(var(--planta-ancho) * 5 / 3);
 }
 
 
@@ -1336,13 +1341,13 @@ main>.portada>* {
 
 
 /* 13. PLANTITA CON PERSONALIDAD --------------------------
-     .planta-fija = contenedor fijo en la esquina.
+     .planta-fija = contenedor fijo en la esquina. La plantita
+     es el botón que abre y cierra el asistente de IA.
      Cambia right/left y bottom para moverla. */
 .planta-fija {
   position: fixed;
   right: 1rem;
-  /* Deja libre la esquina para el botón del asistente. */
-  bottom: 5.9rem;
+  bottom: calc(1.25rem + env(safe-area-inset-bottom, 0px));
   z-index: 5;
   display: flex;
   flex-direction: column;
@@ -1352,14 +1357,54 @@ main>.portada>* {
   /* el contenedor no estorba los clics... */
 }
 
+/* Botón real (Tab + Enter). El SVG de dentro es solo el dibujo. */
+.planta-fija__boton {
+  display: grid;
+  place-items: center;
+  min-width: 48px;
+  min-height: 48px;
+  padding: 0;
+  border: 0;
+  border-radius: 14px;
+  background: none;
+  color: inherit;
+  line-height: 0;
+  cursor: pointer;
+  pointer-events: auto;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.planta-fija__boton:focus-visible {
+  outline: 3px solid var(--verde-oscuro);
+  outline-offset: 4px;
+}
+
 .planta-scroll {
-  width: clamp(64px, 9vw, 110px);
+  width: var(--planta-ancho);
   height: auto;
   overflow: visible;
-  pointer-events: auto;
-  /* ...pero la plantita sí se puede tocar */
+  pointer-events: none;
+  /* el clic lo recibe el botón que lo envuelve */
   cursor: pointer;
   transform-origin: 50% 100%;
+  transition: transform .2s ease, filter .2s ease;
+}
+
+/* Pista sutil de que se puede tocar: pequeño salto + brillo. */
+@media (hover: hover) {
+  .planta-fija__boton:hover .planta-scroll {
+    transform: translateY(-4px) scale(1.04);
+    filter: drop-shadow(0 6px 10px rgba(70, 135, 111, .28));
+  }
+}
+
+.planta-fija__boton:active .planta-scroll {
+  transform: translateY(-1px) scale(.98);
+}
+
+/* Chat abierto: carita sonriente y brillo suave. */
+.planta-fija__boton--activo .planta-scroll {
+  filter: drop-shadow(0 0 9px rgba(103, 143, 115, .55));
 }
 
 /* Dibujo */
@@ -1433,11 +1478,13 @@ main>.portada>* {
   fill: var(--blanco);
 }
 
-.planta-fija.celebrando .planta__boca {
+.planta-fija.celebrando .planta__boca,
+.planta-fija__boton--activo .planta__boca {
   display: none;
 }
 
-.planta-fija.celebrando .planta__boca--feliz {
+.planta-fija.celebrando .planta__boca--feliz,
+.planta-fija__boton--activo .planta__boca--feliz {
   display: inline;
 }
 
@@ -1543,6 +1590,15 @@ main>.portada>* {
   .planta__ojo,
   .planta-fija.saltando .planta-scroll {
     animation: none;
+  }
+
+  .planta-scroll {
+    transition: none;
+  }
+
+  .planta-fija__boton:hover .planta-scroll,
+  .planta-fija__boton:active .planta-scroll {
+    transform: none;
   }
 
   /* Destacados */

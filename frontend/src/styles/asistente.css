@@ -6,44 +6,23 @@
    ========================================================= */
 
 .asistente {
+  /* El panel se abre justo encima de la plantita, sin taparla.
+     --planta-alto lo define global.css y mide el SVG de la planta. */
+  --asistente-bottom: calc(
+    1.25rem + env(safe-area-inset-bottom, 0px) + var(--planta-alto, 183px) + .75rem
+  );
+
   position: fixed;
   right: 1rem;
-  bottom: 1rem;
+  bottom: var(--asistente-bottom);
   z-index: 60;
   display: flex;
   flex-direction: column;
   align-items: flex-end;
   gap: .75rem;
   font-family: var(--fuente-texto, "Segoe UI", system-ui, sans-serif);
-}
-
-/* ---------- Botón flotante ---------- */
-.asistente__boton {
-  display: grid;
-  place-items: center;
-  width: 60px;
-  height: 60px;
-  border: 0;
-  border-radius: 50%;
-  background: var(--verde-oscuro, #46876F);
-  color: #fff;
-  cursor: pointer;
-  box-shadow: 0 12px 28px rgba(70, 135, 111, .38);
-  transition: transform .2s, background .2s;
-}
-
-.asistente__boton:hover {
-  background: var(--verde-medio, #678F73);
-  transform: translateY(-2px);
-}
-
-.asistente__boton:active {
-  transform: scale(.96);
-}
-
-.asistente__boton svg {
-  width: 27px;
-  height: 27px;
+  /* El contenedor vacío no debe bloquear clics de la página. */
+  pointer-events: none;
 }
 
 /* ---------- Ventana ---------- */
@@ -51,13 +30,15 @@
   display: flex;
   flex-direction: column;
   width: min(380px, calc(100vw - 2rem));
-  height: min(560px, calc(100vh - 7rem));
-  height: min(560px, calc(100dvh - 7rem));
+  /* Deja sitio para la plantita en la esquina inferior derecha. */
+  height: min(560px, calc(100vh - var(--asistente-bottom) - 1rem));
+  height: min(560px, calc(100dvh - var(--asistente-bottom) - 1rem));
   overflow: hidden;
   border: 1px solid var(--verde-claro, #C1D1B5);
   border-radius: var(--radio-grande, 24px);
   background: #fff;
   box-shadow: 0 24px 60px rgba(62, 62, 62, .22);
+  pointer-events: auto;
   animation: asistente-aparecer .22s ease-out;
 }
 
@@ -362,10 +343,6 @@
     border-radius: 0;
   }
 
-  .asistente--abierto .asistente__boton {
-    display: none;
-  }
-
   .asistente__form {
     padding-bottom: calc(.35rem + env(safe-area-inset-bottom));
   }
@@ -381,7 +358,6 @@
     animation: none;
   }
 
-  .asistente__boton,
   .asistente__sugerencia,
   .asistente__enviar {
     transition: none;
